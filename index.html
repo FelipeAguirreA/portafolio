@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Description" content="Template portafolio desarrollador UI/UX " />
+    <title>Portafolio</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!--Boostrap-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+    <!--primeflex.org-->
+    <link rel="stylesheet" href="https://unpkg.com/primeflex@^3/primeflex.css">
+
+    <!--https://fontawesome.com/kits/ab67aa19eb/setup    para los iconos-->
+    <script src="https://kit.fontawesome.com/b3f17f1dac.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="flex w-full fixed top-0 z-1">
+        <nav class="flex justify-content-between w-full navbar">
+            <span class="logo cursor-pointer" onclick="scrollToSection('home')">
+                <img src="logo1.png" alt="Logo portafolio" width="948" height="392">
+            </span>
+            <input type="checkbox" aria-label="Checkbox para mostrar y quitar hamburger menu"
+                class="checkbox xl:hidden">
+            <div class="hamburger__lines">
+                <span class="line line1"></span>
+                <span class="line line2"></span>
+                <span class="line line3"></span>
+            </div>
+            <div class="header__info flex align-items-center gap-3">
+                <ul class="flex flex-column xl:flex-row list-none">
+                    <li onclick="scrollToSection('about')">Sobre mí</li>
+                    <li onclick="scrollToSection('Conocimientos')">Conocimientos</li>
+                    <li onclick="scrollToSection('certificados')">Mis Certificados</li>
+                    <li onclick="scrollToSection('contact')">Contacto</li>
+                </ul>
+                <div class="hireMe__button pt-4">
+                    <a href="mailTo:felipeaguirreee@gmail.com" aria-label="Enviar mensaje al correo"
+                        class="cursor-pointer no-underline border-round-lg text-xl xl:text-sm">Contratame</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!--HOME PAGE -->
+    <div class="container">
+        <section id="home"
+                 class="home__page flex align-items-center justify-content-center xl\:justify-content-between grid grid-nogutter gap-4">
+            <div class="left__content col-12 xl:col-6">
+                <div class="message__bubble triangle mb-4 md:mb-2">
+                    <div class="message__text p-2 sm:p-3 text-center">
+                        <p>Hola Mundo, Soy</p>
+                    </div>
+                </div>
+                <h1 class="text-3xl sm:text-5xl md:text-7xl">Felipe Aguirre Aravena</h1>
+                <p class="text-gray-500">
+                    Estudiante Técnico en Programación y Análisis de Sistemas
+                </p>
+                <div class="home__buttons flex align-items-center gap-2 mt-6">
+
+                    <a href="https://github.com/FelipeAguirreA?tab=repositories" target="_blank"
+                       aria-label="Ir a github"
+                       class="cursor-pointer border-round-lg no-underline">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/felipe-aguirre-aravena-489188a1" target="_blank"
+                       aria-label="Ir a linkedin"
+                       class="cursor-pointer border-round-lg no-underline">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <button onclick="scrollToSection('certificados')"
+                            aria-label="Deslizar a sección portafolio para mostrar mis trabajos"
+                            class="cursor-pointer border-round-lg">Mis certificados
+                    </button>
+                </div>
+            </div>
+            <div class="right__content col-9 sm:col-6 xl:col-5">
+                <div class="circulo">
+                    <span></span>
+                    <span></span>
+                    <div class="image" >
+                        <img src="fotoperfil.jpg"  alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--sobre mi-->
+        <section id="about" class="about__me w-full min-h-screen flex align-items-center">
+            <div class="aboutMe__content min-h-full flex flex-column md:flex-row pt-8 md:pt-0">
+                <div class="aboutMe__info col-12 md:col-6 md:pr-6 pt-0">
+                    <h1 class="text-3xl md:text-5xl">Sobre mí</h1>
+                    <p class="text-gray-500">¡Bienvenido a mi mundo creativo!
+
+                        Mi nombre es Felipe Aguirre y estoy encantado de darte la bienvenida a mi página web de
+                        portafolio. Te comento que estoy en proceso de aprendizaje y soy estudiante del instituo CIISA.
+                        En este espacio, encontrarás una colección cuidadosamente seleccionada de mis certificaciones.
+                        Mi objetivo es no solo impresionarte con mi habilidad técnica, sino también inspirarte con mi
+                        creatividad y visión.
+                        Te invito a sumergirte en mi portafolio y descubrir lo que tengo para ofrecer.
+                        Estoy emocionado de compartir mi viaje contigo y espero que encuentres inspiración en mis
+                        proximas creaciones.</p>
+                    <p> ¡Gracias por visitar mi página web! No dudes en ponerte en contacto conmigo si tienes alguna
+                        pregunta o si deseas discutir una posible colaboración.</p>
+                    <p> ¡Espero con ansias conectarme contigo y explorar las infinitas posibilidades juntos!</p>
+                    <div class="knowledge flex flex-column gap-3 mt-5">
+                        <p>Aprendizaje 100%</p>
+                        <div class="progress__bar progress__aprendizaje">
+                            <span></span>
+                        </div>
+                        <p>Contabilidad 90%</p>
+                        <div class="progress__bar progress__contabilidad">
+                            <span></span>
+                        </div>
+                        <p>HTML 80%</p>
+                        <div class="progress__bar progress__html">
+                            <span></span>
+                        </div>
+                        <p>CSS 75%</p>
+                        <div class="progress__bar progress__CSS">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="Conocimientos" class="Conocimientos min-h-full w-full pb-7">
+            <div class="Conocimientos__title flex flex-column gap-3 text-center">
+                <h1 class="text-3xl md:text-5xl">Mis Conocimientos</h1>
+                <p class="text-gray-400 text-sm md:text-base">
+                    Aquí podras observar mis conocimientos, con ellos espero alcanzar nuevas metas e ir aprendiendo
+                    mucho más.
+                </p>
+            </div>
+            <div class="Conocimientos__card w-full grid grid-nogutter mt-7 gap-5">
+                <div class="card flex align-items-center col-12 sm:col-6 lg:col-4 gap-3 p-2">
+                    <div class="service__logo flex align-items-center justify-content-center">
+                        <i class="fa-brands fa-html5"></i>
+                    </div>
+                    <div class="service__name">
+                        <p>HTML</p>
+                    </div>
+                </div>
+                <div class="card flex align-items-center col-12 sm:col lg:col-4 gap-3 p-2">
+                    <div class="service__logo flex align-items-center justify-content-center ">
+                        <i class="fa-brands fa-css3-alt"></i>
+                    </div>
+                    <div class="service__name">
+                        <p>CSS</p>
+                    </div>
+                </div>
+                <div class="card flex align-items-center col-12 sm:col md:col-4 lg:col gap-3 p-2">
+                    <div class="service__logo flex align-items-center justify-content-center ">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <div class="service__name">
+                        <p>CONTABILIDAD</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--certificados -->
+        <section id="certificados" class="certificados min-h-full w-full pb-8 pt-8">
+            <div class="certificados__title flex flex-column gap-3 text-center">
+                <h1 class="text-3xl md:text-5xl">Mis Certificaciones</h1>
+                <p class="text-gray-400 text-sm md:text-base">
+                    Como profesional comprometido con el aprendizaje continuo y el crecimiento profesional, he invertido
+                    tiempo y esfuerzo en obtener diversas certificaciones que respaldan mi experiencia y habilidades.
+                    Estas certificaciones representan mi dedicación a la excelencia y mi búsqueda constante de la mejora
+                    continua. Algunas de las certificaciones que he obtenido incluyen:
+                </p>
+            </div>
+            <div class="certificados__gallery">
+                <div class="gallery__categories mb-5 mt-5">
+                </div>
+                <div class="proyect__gallery flex justify-content-center align-items-center flex-wrap gap-3">
+                    <div class="project__card tours__Web">
+                        <img src="certificado.PNG" alt="">
+                    </div>
+                    <div class="project__card e__commerce">
+                        <img src="Certificado_Génesis%20ERP%20Avanzado_Felipe.png" alt="" id="projectImage">
+                    </div>
+                    <div class="project__card e__commerce">
+                        <img src="Certificado_Panel%20Operacional%20-%20Génesis%20ERP_Felipe.png" alt="">
+                    </div>
+                    <div class="project__card e__commerce">
+                        <img src="Certificado_Zenda%20Avanzado_Felipe.png" alt="">
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!--CONTACTO -->
+        <footer id="contact" class="min-h-full w-full flex grid col-12 justify-content-center pb-8 pt-8 lg:text-center">
+            <div class="social__media col-12 md:col-4 flex flex-column justify-content-between">
+                <h3>Encuentrame en:</h3>
+                <div class="social__mediaIcons mt-5 flex lg:justify-content-center gap-3">
+                    <a href="https://www.linkedin.com/in/felipe-aguirre-aravena-489188a1" target="_blank"
+                       aria-label="Ir a linkedin">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/FelipeAguirreA?tab=repositories" target="_blank"
+                       aria-label="Ir a github">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="contact col-12 sm:col-6 sm:pt-0 md:pt-2 md:col-4 flex flex-column justify-content-between md:align-items-center">
+                <h3>Contacto</h3>
+                <div class="phone__number flex align-items-center gap-2">
+                    <i class="fa-solid fa-phone"></i>
+                    <p>+569 92988275</p>
+                </div>
+                <div class="email flex align-items-center gap-2">
+                    <i class="fa-solid fa-envelope"></i>
+                    <p>felipeaguirreee@gmail.com</p>
+                </div>
+                <a href="mailTo:felipeaguirreee@gmail.com"
+                   class="cursor-pointer text-center col-4 sm:col-6 xl:col-4 mt-3 no-underline border-round-lg">
+                    <span>
+                        <i class="fa-solid fa-message"></i>
+                    </span>Contactame
+                </a>
+            </div>
+            <div class="my__Conocimientos col-12 sm:col-6 sm:p-0 md:col-4 md:pt-2 md:align-items-center flex flex-column justify-content-between">
+            <div class="form-card1">
+                <div class="form-card2">
+                    <form class="form">
+                        <p class="form-heading">Escribeme</p>
+                        <div class="form-field">
+                            <input required="" placeholder="Name" class="input-field" type="text" />
+                        </div>
+                        <div class="form-field">
+                            <input
+                                    required=""
+                                    placeholder="Email"
+                                    class="input-field"
+                                    type="email"
+                            />
+                        </div>
+
+                        <div class="form-field">
+        <textarea
+                required=""
+                placeholder="Message"
+                cols="30"
+                rows="3"
+                class="input-field"
+        ></textarea>
+                        </div>
+                        <button class="sendMessage-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </footer>
+    </div>
+
+
+</body>
+<script>
+    const filterContainer = document.querySelector(".gallery__categories");
+    const galleryItems = document.querySelectorAll(".project__card");
+
+    filterContainer.addEventListener("click", (event) => {
+        if (event.target.classList.contains("filter-item")) {
+            filterContainer.querySelector(".active").classList.remove("active");
+            event.target.classList.add("active")
+            const filterValue = event.target.getAttribute("data-filter")
+            galleryItems.forEach(item => {
+                if (item.classList.contains(filterValue) || filterValue === "all") {
+                    item.classList.remove("hide")
+                    item.classList.add("show")
+                } else {
+                    item.classList.remove("show")
+                    item.classList.add("hide")
+                }
+            })
+        }
+    })
+
+    function scrollToSection(sectionId){
+        document.getElementById(sectionId).scrollIntoView({behavior:"smooth"})
+    }
+
+
+</script>
+
+</html>
