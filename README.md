@@ -53,7 +53,7 @@ python -m http.server 8000
 
 ---
 
-**© 2024 Felipe Aguirre. All rights reserved.**
+**© 2025 Felipe Aguirre. All rights reserved.**
 
 ---
 
