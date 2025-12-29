@@ -895,7 +895,6 @@ function initFluid() {
         const shader = gl.createShader(type);
         gl.shaderSource(shader, source);
         gl.compileShader(shader);
-        if (!gl.getShaderParameter(shader, gl.COMPILER)) {}
         if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) console.trace(gl.getShaderInfoLog(shader));
         return shader;
     }
@@ -1249,7 +1248,7 @@ function initFluid() {
 
     let dye, velocity, divergence, curl, pressure;
     // Textura de dithering opcional (se mantiene la blanca por defecto)
-    const ditheringTexture = createTextureAsync('assets/images/fotoperfil.jpg');
+    const ditheringTexture = createTextureAsync('assets/images/fotoperfil.png');
 
     const blurProgram = new Program(blurVertexShader, blurShader);
     const copyProgram = new Program(baseVertexShader, copyShader);
