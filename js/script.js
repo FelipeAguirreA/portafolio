@@ -1699,9 +1699,19 @@ if (contactForm) {
                 body: JSON.stringify(payload)
             });
             
+            const contentType = response.headers.get('content-type');
+            let errorData;
+            
             if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.error || 'Error al enviar');
+                // Intentar parsear como JSON, si no es posible obtener texto plano
+                if (contentType && contentType.includes('application/json')) {
+                    errorData = await response.json();
+                } else {
+                    const text = await response.text();
+                    console.error('Error response (not JSON):', text);
+                    throw new Error('Error del servidor. Revisa los logs de Vercel.');
+                }
+                throw new Error(errorData.error || 'Error al enviar');
             }
             
             // Éxito

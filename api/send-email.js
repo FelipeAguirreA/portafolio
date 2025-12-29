@@ -1,11 +1,13 @@
-const { Resend } = require('resend');
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 module.exports = async function handler(req, res) {
   // Solo acepta POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  // Validar que la API key esté presente
+  if (!process.env.RESEND_API_KEY) {
+    console.error('RESEND_API_KEY no está configurada');
+    return res.status(500).json({ error: 'Configuración del servidor incompleta' });
   }
 
   const { name, email, subject, message } = req.body || {};
@@ -16,6 +18,10 @@ module.exports = async function handler(req, res) {
   }
 
   try {
+    // Inicializar Resend DENTRO de la función
+    const { Resend } = require('resend');
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     await resend.emails.send({
       from: 'Portafolio <onboarding@resend.dev>',
       to: 'felipeaguirreee@gmail.com',
@@ -36,4 +42,4 @@ module.exports = async function handler(req, res) {
     console.error('Error enviando email:', error);
     return res.status(500).json({ error: 'Error al enviar el correo', details: error.message });
   }
-}
+};
