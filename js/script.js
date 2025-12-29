@@ -1668,3 +1668,53 @@ window.addEventListener('load', () => {
         console.log('✨ ScrollTrigger refreshed - animations should work now!');
     }, 100);
 });
+
+// ============================================
+// Contact Form Handler
+// ============================================
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(contactForm);
+        const payload = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            subject: formData.get('subject'),
+            message: formData.get('message')
+        };
+        
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.querySelector('span').textContent;
+        
+        // Deshabilitar botón y mostrar estado
+        submitBtn.disabled = true;
+        submitBtn.querySelector('span').textContent = 'Enviando...';
+        
+        try {
+            const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || 'Error al enviar');
+            }
+            
+            // Éxito
+            alert('✅ Mensaje enviado correctamente. ¡Gracias por contactarme!');
+            contactForm.reset();
+            
+        } catch (error) {
+            console.error('Error:', error);
+            alert('❌ Hubo un error al enviar el mensaje. Por favor, intenta más tarde o contáctame directamente por email.');
+        } finally {
+            // Restaurar botón
+            submitBtn.disabled = false;
+            submitBtn.querySelector('span').textContent = originalText;
+        }
+    });
+}

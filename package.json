@@ -1,0 +1,12 @@
+{
+  "name": "portafolio",
+  "version": "1.0.0",
+  "description": "Portafolio personal con formulario de contacto",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "resend": "^4.0.0"
+  }
+}
