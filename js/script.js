@@ -1734,17 +1734,27 @@ if (contactForm) {
 // ============================================
 function openSuccessModal() {
     const modal = document.getElementById('success-modal');
+    const content = modal.querySelector('.modal-content');
+    const overlay = modal.querySelector('.modal-overlay');
+
+    // Kill tweens to avoid conflicts on repeated opens
+    gsap.killTweensOf([content, overlay]);
+
+    // Ensure initial state before animation
+    gsap.set(content, { scale: 0.8, opacity: 0 });
+    gsap.set(overlay, { opacity: 0 });
+
     modal.classList.add('active');
-    
-    // Animar con GSAP
-    gsap.from('.modal-content', {
-        scale: 0.8,
-        opacity: 0,
+
+    // Animate scoped elements
+    gsap.to(content, {
+        scale: 1,
+        opacity: 1,
         duration: 0.4,
         ease: 'back.out(1.2)'
     });
-    
-    gsap.to('.modal-overlay', {
+
+    gsap.to(overlay, {
         opacity: 1,
         duration: 0.3
     });
@@ -1752,13 +1762,18 @@ function openSuccessModal() {
 
 function closeSuccessModal() {
     const modal = document.getElementById('success-modal');
-    gsap.to('.modal-content', {
-        scale: 0.8,
+    const content = modal.querySelector('.modal-content');
+    const overlay = modal.querySelector('.modal-overlay');
+
+    gsap.to(content, {
+        scale: 0.95,
         opacity: 0,
-        duration: 0.3,
+        duration: 0.25,
         ease: 'back.in(1.2)',
         onComplete: () => {
             modal.classList.remove('active');
+            // Reset overlay for next open
+            gsap.set(overlay, { opacity: 0 });
         }
     });
 }

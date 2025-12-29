@@ -1398,6 +1398,7 @@ section {
     bottom: 0;
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(4px);
+    opacity: 0; /* start hidden, animated to 1 when opening */
 }
 
 .modal-content {
