@@ -424,50 +424,68 @@ gsap.fromTo('.certificate-card',
 // ============================================
 // Contact Section Animations
 // ============================================
-gsap.from('.contact .section-header', {
+// Ensure default visible state, then animate in
+gsap.set('.contact .section-header', { opacity: 1, y: 0 });
+gsap.fromTo('.contact .section-header', {
+    y: 80,
+    opacity: 0
+}, {
     scrollTrigger: {
         trigger: '.contact',
         start: 'top 80%',
         toggleActions: 'play none none reverse'
     },
-    y: 80,
-    opacity: 0,
+    y: 0,
+    opacity: 1,
     duration: 1,
     ease: 'power3.out'
 });
 
-gsap.from('.contact-info', {
+gsap.set('.contact-info', { opacity: 1, x: 0 });
+gsap.fromTo('.contact-info', {
+    x: -50,
+    opacity: 0
+}, {
     scrollTrigger: {
         trigger: '.contact-content',
         start: 'top 70%'
     },
-    x: -50,
-    opacity: 0,
+    x: 0,
+    opacity: 1,
     duration: 1
 });
 
-gsap.from('.contact-form', {
+gsap.set('.contact-form', { opacity: 1, x: 0 });
+gsap.fromTo('.contact-form', {
+    x: 60,
+    opacity: 0
+}, {
     scrollTrigger: {
         trigger: '.contact-content',
         start: 'top 70%',
         toggleActions: 'play none none reverse'
     },
-    x: 60,
-    opacity: 0,
+    x: 0,
+    opacity: 1,
     duration: 1.2,
     ease: 'power3.out'
 });
 
 // Social links animados individualmente
-gsap.from('.social-link', {
+gsap.set('.social-link', { opacity: 1, scale: 1, rotation: 0 });
+gsap.fromTo('.social-link', {
+    scale: 0.85,
+    rotation: 180,
+    opacity: 0
+}, {
     scrollTrigger: {
         trigger: '.contact-info',
         start: 'top 70%',
         toggleActions: 'play none none reverse'
     },
-    scale: 0,
-    rotation: 180,
-    opacity: 0,
+    scale: 1,
+    rotation: 0,
+    opacity: 1,
     duration: 0.6,
     stagger: 0.08,
     ease: 'back.out(2)'
