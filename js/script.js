@@ -1715,7 +1715,7 @@ if (contactForm) {
             }
             
             // Éxito
-            alert('✅ Mensaje enviado correctamente. ¡Gracias por contactarme!');
+            openSuccessModal();
             contactForm.reset();
             
         } catch (error) {
@@ -1725,6 +1725,40 @@ if (contactForm) {
             // Restaurar botón
             submitBtn.disabled = false;
             submitBtn.querySelector('span').textContent = originalText;
+        }
+    });
+}
+
+// ============================================
+// Success Modal Functions
+// ============================================
+function openSuccessModal() {
+    const modal = document.getElementById('success-modal');
+    modal.classList.add('active');
+    
+    // Animar con GSAP
+    gsap.from('.modal-content', {
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.4,
+        ease: 'back.out(1.2)'
+    });
+    
+    gsap.to('.modal-overlay', {
+        opacity: 1,
+        duration: 0.3
+    });
+}
+
+function closeSuccessModal() {
+    const modal = document.getElementById('success-modal');
+    gsap.to('.modal-content', {
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.3,
+        ease: 'back.in(1.2)',
+        onComplete: () => {
+            modal.classList.remove('active');
         }
     });
 }
