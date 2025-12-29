@@ -26,17 +26,7 @@ portafolio/
 - ✅ Formulario de contacto real vía **Vercel Functions + Resend**
 - ✅ Responsive design y navegación suave
 
-## 🖼️ Capturas y GIFs
-
-Coloca tus GIFs en `assets/images/demo/` y actualiza los nombres si lo necesitas.
-
-<img src="assets/images/demo/hero-animation.gif" alt="Animación Hero" width="800" height="400" onerror="this.src='https://media.giphy.com/media/xT0GqeSlGSRWn9U06E/giphy.gif'" />
-
-<img src="assets/images/demo/projects-parallax.gif" alt="Parallax y proyectos" width="800" height="400" onerror="this.src='https://media.giphy.com/media/26BRuo6sLetdllPAQ/giphy.gif'" />
-
-<img src="assets/images/demo/contact-success-modal.gif" alt="Modal de éxito del formulario" width="800" height="400" onerror="this.src='https://media.giphy.com/media/3o6fJ1BM7l7cJk9aae/giphy.gif'" />
-
-## 🛠️ Tecnologías
+## ️🛠️ Tecnologías
 
 - **HTML5** - Estructura semántica
 - **CSS3** - Estilos y responsividad
