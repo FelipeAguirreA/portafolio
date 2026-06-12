@@ -1,0 +1,153 @@
+{
+  "sheetsById": {
+    "Scene": {
+      "staticOverrides": {
+        "byObject": {}
+      },
+      "sequence": {
+        "subUnitsPerUnit": 30,
+        "length": 10,
+        "type": "PositionalSequence",
+        "tracksByObject": {
+          "camera": {
+            "trackData": {
+              "camDist": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "camera:[\"distance\"]",
+                "keyframes": [
+                  { "id": "cd1", "position": 0, "connectedRight": true, "handles": [0.5, 1, 0.2, 0], "type": "bezier", "value": 16 },
+                  { "id": "cd2", "position": 3.6, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 8.4 },
+                  { "id": "cd3", "position": 4, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 8.4 },
+                  { "id": "cd4", "position": 7, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 10.5 },
+                  { "id": "cd5", "position": 10, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 9.4 }
+                ]
+              },
+              "camHeight": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "camera:[\"height\"]",
+                "keyframes": [
+                  { "id": "ch1", "position": 0, "connectedRight": true, "handles": [0.5, 1, 0.2, 0], "type": "bezier", "value": 2.6 },
+                  { "id": "ch2", "position": 3.6, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.5 },
+                  { "id": "ch3", "position": 4, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.5 },
+                  { "id": "ch4", "position": 7, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 2.1 },
+                  { "id": "ch5", "position": 10, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.35 }
+                ]
+              },
+              "camOrbit": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "camera:[\"orbit\"]",
+                "keyframes": [
+                  { "id": "co1", "position": 0, "connectedRight": true, "handles": [0.5, 1, 0.2, 0], "type": "bezier", "value": -0.06 },
+                  { "id": "co2", "position": 3.6, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0 },
+                  { "id": "co3", "position": 4, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0 },
+                  { "id": "co4", "position": 6.5, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.42 },
+                  { "id": "co5", "position": 10, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 1.0 }
+                ]
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"distance\"]": "camDist",
+              "[\"height\"]": "camHeight",
+              "[\"orbit\"]": "camOrbit"
+            }
+          },
+          "core": {
+            "trackData": {
+              "coreDist": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "core:[\"distortion\"]",
+                "keyframes": [
+                  { "id": "kd1", "position": 0, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.05 },
+                  { "id": "kd2", "position": 3.6, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.85 },
+                  { "id": "kd3", "position": 4, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.85 },
+                  { "id": "kd4", "position": 6.2, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 1.6 },
+                  { "id": "kd5", "position": 8, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 1.0 },
+                  { "id": "kd6", "position": 10, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 1.0 }
+                ]
+              },
+              "coreSpeed": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "core:[\"speed\"]",
+                "keyframes": [
+                  { "id": "ks1", "position": 0, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.16 },
+                  { "id": "ks2", "position": 3.6, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.3 },
+                  { "id": "ks3", "position": 4, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.3 },
+                  { "id": "ks4", "position": 10, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.35 }
+                ]
+              },
+              "coreGrade": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "core:[\"grade\"]",
+                "keyframes": [
+                  { "id": "cg1", "position": 0, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0 },
+                  { "id": "cg2", "position": 4, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.1 },
+                  { "id": "cg3", "position": 5.5, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.8 },
+                  { "id": "cg4", "position": 7.5, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.75 },
+                  { "id": "cg5", "position": 9.3, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.2 },
+                  { "id": "cg6", "position": 10, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.05 }
+                ]
+              },
+              "coreGlow": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "core:[\"glow\"]",
+                "keyframes": [
+                  { "id": "kg1", "position": 0, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.05 },
+                  { "id": "kg2", "position": 3.6, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.75 },
+                  { "id": "kg3", "position": 4, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.75 },
+                  { "id": "kg4", "position": 10, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 1.0 }
+                ]
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"distortion\"]": "coreDist",
+              "[\"speed\"]": "coreSpeed",
+              "[\"glow\"]": "coreGlow",
+              "[\"grade\"]": "coreGrade"
+            }
+          },
+          "particles": {
+            "trackData": {
+              "pOpacity": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "particles:[\"opacity\"]",
+                "keyframes": [
+                  { "id": "po1", "position": 0, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0 },
+                  { "id": "po2", "position": 3.6, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.8 },
+                  { "id": "po3", "position": 4, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0.8 },
+                  { "id": "po4", "position": 10, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 1 }
+                ]
+              },
+              "pMorph": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "particles:[\"morph\"]",
+                "keyframes": [
+                  { "id": "pm1", "position": 0, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0 },
+                  { "id": "pm2", "position": 8.3, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 0 },
+                  { "id": "pm3", "position": 9.7, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 1 },
+                  { "id": "pm4", "position": 10, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 1 }
+                ]
+              },
+              "pSpread": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "particles:[\"spread\"]",
+                "keyframes": [
+                  { "id": "ps1", "position": 0, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 1.4 },
+                  { "id": "ps2", "position": 3.6, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 1 },
+                  { "id": "ps3", "position": 4, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 1 },
+                  { "id": "ps4", "position": 10, "connectedRight": true, "handles": [0.5, 1, 0.5, 0], "type": "bezier", "value": 1.8 }
+                ]
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"opacity\"]": "pOpacity",
+              "[\"morph\"]": "pMorph",
+              "[\"spread\"]": "pSpread"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitionVersion": "0.4.0",
+  "revisionHistory": []
+}

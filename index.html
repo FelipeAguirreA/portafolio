@@ -3,514 +3,466 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Felipe Aguirre | Desarrollador de Software</title>
+    <title>Felipe Aguirre — Desarrollador de Software</title>
+    <meta name="description" content="Portafolio de Felipe Aguirre. Productos web con Next.js & React, apps móviles con React Native, backend con Java & Spring Boot e IA aplicada con HuggingFace.">
+    <meta property="og:title" content="Felipe Aguirre — Desarrollador de Software">
+    <meta property="og:description" content="Full Stack · Mobile · IA. Next.js, React, React Native, Spring Boot, HuggingFace.">
+    <meta property="og:image" content="/assets/images/fotoperfil.png">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230c0e0b'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-style='italic' font-size='28' fill='%23cdf32f' text-anchor='middle'%3EFA%3C/text%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Archivo:wght@300;400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Scroll Progress Bar -->
-    <div class="scroll-progress"></div>
-    
-    <!-- Cursor personalizado eliminado: se usa solo el efecto fluido -->
 
-    <!-- Partículas de fondo -->
-    <div id="particles"></div>
-    <!-- Cursor fluido WebGL -->
-    <canvas id="fluid"></canvas>
+    <!-- Escena 3D persistente -->
+    <canvas id="scene" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
 
-    <!-- Smooth Scroll Wrapper -->
-    <div id="smooth-wrapper">
-    <div id="smooth-content">
+    <!-- Letterbox de cine — se retira al terminar la intro -->
+    <div class="letterbox letterbox--top" aria-hidden="true"></div>
+    <div class="letterbox letterbox--bottom" aria-hidden="true"></div>
 
     <!-- Navegación -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#inicio" class="logo">
-                <span class="logo-text">FA</span>
-                <span class="logo-dot"></span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#inicio" class="nav-link active">Inicio</a></li>
-                <li><a href="#sobre-mi" class="nav-link">Sobre Mí</a></li>
-                <li><a href="#habilidades" class="nav-link">Habilidades</a></li>
-                <li><a href="#proyectos" class="nav-link">Proyectos</a></li>
-                <li><a href="#certificados" class="nav-link">Certificados</a></li>
-                <li><a href="#contacto" class="nav-link">Contacto</a></li>
-            </ul>
-            <button class="menu-toggle" aria-label="Abrir menú">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+    <header class="nav" id="nav">
+        <a href="#inicio" class="nav__logo"><em>F</em>A<span class="nav__dot"></span></a>
+        <nav class="nav__links" aria-label="Navegación principal">
+            <a href="#sobre-mi" class="nav__link" data-spy="sobre-mi">Sobre mí</a>
+            <a href="#habilidades" class="nav__link" data-spy="habilidades">Habilidades</a>
+            <a href="#proyectos" class="nav__link" data-spy="proyectos">Proyectos</a>
+            <a href="#certificados" class="nav__link" data-spy="certificados">Certificados</a>
+            <a href="#contacto" class="nav__link nav__link--cta" data-spy="contacto">Contacto</a>
+        </nav>
+        <button class="nav__burger" id="burger" aria-label="Abrir menú" aria-expanded="false">
+            <span></span><span></span>
+        </button>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="inicio" class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <p class="hero-greeting">¡Hola! Soy</p>
-                <h1 class="hero-title">
-                    <span class="title-line">Felipe</span>
-                    <span class="title-line">Aguirre</span>
-                </h1>
-                <div class="hero-role">
-                    <span class="role-text">Desarrollador de Software</span>
-                    <span class="role-divider">|</span>
-                    <span class="role-text">Mobile & Backend</span>
+    <!-- Menú móvil -->
+    <div class="menu" id="menu" aria-hidden="true">
+        <nav class="menu__links" aria-label="Menú móvil">
+            <a href="#inicio" class="menu__link"><span>01</span>Inicio</a>
+            <a href="#sobre-mi" class="menu__link"><span>02</span>Sobre mí</a>
+            <a href="#habilidades" class="menu__link"><span>03</span>Habilidades</a>
+            <a href="#proyectos" class="menu__link"><span>04</span>Proyectos</a>
+            <a href="#certificados" class="menu__link"><span>05</span>Certificados</a>
+            <a href="#contacto" class="menu__link"><span>06</span>Contacto</a>
+        </nav>
+        <div class="menu__meta">
+            <a href="mailto:felipeaguirreee@gmail.com">felipeaguirreee@gmail.com</a>
+            <span>Chile — construyendo lo próximo</span>
+        </div>
+    </div>
+
+    <main>
+        <!-- ============ HERO ============ -->
+        <section class="hero" id="inicio">
+            <div class="hero__inner">
+                <div class="hero__text">
+                    <p class="hero__eyebrow" data-reveal>
+                        <span class="pulse"></span>Construyendo productos digitales — Chile
+                    </p>
+                    <h1 class="hero__title">
+                        <span class="hero__line" data-reveal>Felipe</span>
+                        <span class="hero__line hero__line--accent" data-reveal><em>Aguirre</em></span>
+                    </h1>
+                    <div class="hero__sub" data-reveal>
+                        <p class="hero__role">Desarrollador de Software<br><strong>Full Stack · Mobile · IA</strong></p>
+                        <p class="hero__desc">
+                            De la contabilidad y los procesos al código. Hoy construyo productos
+                            web con Next.js &amp; React, apps móviles con React Native y APIs
+                            robustas con Java &amp; Spring Boot.
+                        </p>
+                    </div>
+                    <div class="hero__actions" data-reveal>
+                        <a href="#proyectos" class="btn btn--solid">Ver proyectos
+                            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                        </a>
+                        <a href="#contacto" class="btn btn--ghost">Contactar</a>
+                    </div>
                 </div>
-                <p class="hero-description">
-                    Perfil en formación en desarrollo de software. 
-                    Experiencia previa en sistemas y procesos, actualmente desarrollando apps móviles, frontend, backend y APIs.
+                <figure class="hero__photo" data-reveal>
+                    <img src="/assets/images/perfilgit.png" alt="Felipe Aguirre con su perro">
+                    <figcaption>felipe &amp; copiloto — chile</figcaption>
+                </figure>
+            </div>
+            <div class="hero__scroll" aria-hidden="true">
+                <span>scroll</span>
+                <div class="hero__scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- ============ SOBRE MÍ ============ -->
+        <section class="section about" id="sobre-mi">
+            <div class="section__head">
+                <span class="section__num">01</span>
+                <h2 class="section__title">Sobre <em>mí</em></h2>
+            </div>
+            <div class="about__grid">
+                <figure class="about__media" data-reveal>
+                    <img src="/assets/images/fotoperfil.png" alt="Felipe Aguirre" loading="lazy">
+                    <figcaption>Felipe Aguirre — Chile</figcaption>
+                </figure>
+                <div class="about__body">
+                    <p class="about__lead" data-reveal>
+                        Vengo del mundo de la <em>contabilidad y los procesos</em>,
+                        y decidí reconstruir mi carrera desde los cimientos: el software.
+                    </p>
+                    <p data-reveal>
+                        Hoy me especializo en desarrollo de aplicaciones móviles con React Native
+                        y Expo, y en backend con Java y Spring Boot. Me apasiona conectar
+                        interfaces con APIs robustas — el puente completo, no solo una orilla.
+                    </p>
+                    <p data-reveal>
+                        De los libros contables a un producto con IA en producción:
+                        cada proyecto sube la vara. Si algo de lo que ves te hace ruido, hablemos.
+                    </p>
+                    <div class="about__stats" data-reveal>
+                        <div class="stat">
+                            <span class="stat__num" data-count="1">0</span>
+                            <span class="stat__label">Año en formación</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat__num" data-count="17">0</span>
+                            <span class="stat__label">Repositorios GitHub</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat__num" data-count="103">0</span>
+                            <span class="stat__label">Contribuciones 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ HABILIDADES ============ -->
+        <section class="section skills" id="habilidades">
+            <div class="section__head">
+                <span class="section__num">02</span>
+                <h2 class="section__title">Habili<em>dades</em></h2>
+            </div>
+            <div class="skills__list">
+                <div class="skills__row" data-reveal>
+                    <h3 class="skills__area"><em>Frontend</em></h3>
+                    <div class="skills__tags">
+                        <span>React</span><span>Next.js</span><span>TypeScript</span><span>Tailwind CSS</span><span>JavaScript</span><span>HTML5</span><span>CSS3</span>
+                    </div>
+                </div>
+                <div class="skills__row" data-reveal>
+                    <h3 class="skills__area"><em>Mobile</em></h3>
+                    <div class="skills__tags">
+                        <span>React Native</span><span>Expo</span><span>TypeScript</span>
+                    </div>
+                </div>
+                <div class="skills__row" data-reveal>
+                    <h3 class="skills__area"><em>Backend</em></h3>
+                    <div class="skills__tags">
+                        <span>Node.js</span><span>Express</span><span>Java</span><span>Spring Boot</span><span>Python</span><span>Prisma</span><span>REST APIs</span>
+                    </div>
+                </div>
+                <div class="skills__row" data-reveal>
+                    <h3 class="skills__area"><em>Datos</em></h3>
+                    <div class="skills__tags">
+                        <span>PostgreSQL</span><span>Supabase</span><span>MongoDB</span>
+                    </div>
+                </div>
+                <div class="skills__row" data-reveal>
+                    <h3 class="skills__area">IA <em>aplicada</em></h3>
+                    <div class="skills__tags">
+                        <span>HuggingFace</span><span>Embeddings NLP</span><span>Matching semántico</span>
+                    </div>
+                </div>
+                <div class="skills__row" data-reveal>
+                    <h3 class="skills__area"><em>Testing</em></h3>
+                    <div class="skills__tags">
+                        <span>Vitest</span><span>Playwright</span><span>Testing Library</span>
+                    </div>
+                </div>
+                <div class="skills__row" data-reveal>
+                    <h3 class="skills__area"><em>DevOps</em> &amp; flujo</h3>
+                    <div class="skills__tags">
+                        <span>Git</span><span>GitHub Actions</span><span>Docker</span><span>Vercel</span><span>Sentry</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PROYECTOS ============ -->
+        <section class="section projects" id="proyectos">
+            <div class="section__head">
+                <span class="section__num">03</span>
+                <h2 class="section__title">Proyec<em>tos</em></h2>
+            </div>
+            <article class="featured" data-reveal>
+                <p class="featured__tag"><span class="pulse"></span>Proyecto destacado — en producción</p>
+                <h3 class="featured__title">Prac<em>tiX</em></h3>
+                <p class="featured__desc">
+                    Portal de prácticas laborales con <strong>matching inteligente por IA</strong>:
+                    embeddings semánticos de NLP cruzan el CV del estudiante con cada oferta,
+                    más scoring ponderado tipo ATS configurable por empresa.
+                    Trabajo Final de Máster en Desarrollo con IA — desplegado y funcionando.
                 </p>
-                <div class="hero-buttons">
-                    <a href="#proyectos" class="btn btn-primary">
-                        <span>Ver Proyectos</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="#contacto" class="btn btn-secondary">
-                        <span>Contactar</span>
-                    </a>
+                <div class="featured__stats">
+                    <div class="stat"><span class="stat__num">1.336</span><span class="stat__label">Tests passing</span></div>
+                    <div class="stat"><span class="stat__num">100%</span><span class="stat__label">Coverage funcional</span></div>
+                    <div class="stat"><span class="stat__num">v1.16</span><span class="stat__label">En producción</span></div>
                 </div>
-            </div>
-            <div class="hero-visual" data-speed="1.2">
-                <div class="visual-container">
-                    <div class="visual-ring"></div>
-                    <div class="visual-ring"></div>
-                    <div class="visual-ring"></div>
-                    <div class="profile-image">
-                        <img src="assets/images/perfilgit.png" alt="Felipe Aguirre">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator" data-speed="0.8">
-            <span>Scroll</span>
-            <div class="scroll-line"></div>
-        </div>
-    </section>
-
-    <!-- Sobre Mí -->
-    <section id="sobre-mi" class="about">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Conóceme</span>
-                <h2 class="section-title">Sobre Mí</h2>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p class="about-intro">
-                        Soy un desarrollador de software en formación, con background en 
-                        contabilidad y procesos, en transición al área de tecnología.
-                    </p>
-                    <p>
-                        Actualmente me especializo en desarrollo de aplicaciones móviles con 
-                        React Native y Expo, así como en backend con Spring Boot y Java. 
-                        Me apasiona crear soluciones que conecten frontend con APIs robustas.
-                    </p>
-                    <p>
-                        Estoy disponible para práctica profesional en desarrollo de software. 
-                        ¡Hablemos sobre cómo puedo aportar a tu equipo!
-                    </p>
-                    <div class="about-stats">
-                        <div class="stat-item">
-                            <span class="stat-number" data-count="1">0</span>
-                            <span class="stat-label">Año en Formación</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" data-count="17">0</span>
-                            <span class="stat-label">Repositorios GitHub</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" data-count="103">0</span>
-                            <span class="stat-label">Contribuciones 2025</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <div class="image-frame">
-                        <div class="frame-decoration"></div>
-                        <img src="assets/images/fotoperfil.png" alt="Felipe Aguirre">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Habilidades -->
-    <section id="habilidades" class="skills">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Mis Herramientas</span>
-                <h2 class="section-title">Habilidades</h2>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card" data-skill="html">
-                    <div class="skill-icon">
-                        <i class="fab fa-html5"></i>
-                    </div>
-                    <h3>HTML5</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="95"></div>
-                    </div>
-                </div>
-                <div class="skill-card" data-skill="css">
-                    <div class="skill-icon">
-                        <i class="fab fa-css3-alt"></i>
-                    </div>
-                    <h3>CSS3</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="90"></div>
-                    </div>
-                </div>
-                <div class="skill-card" data-skill="js">
-                    <div class="skill-icon">
-                        <i class="fab fa-js"></i>
-                    </div>
-                    <h3>JavaScript</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="85"></div>
-                    </div>
-                </div>
-                <div class="skill-card" data-skill="react">
-                    <div class="skill-icon">
-                        <i class="fab fa-react"></i>
-                    </div>
-                    <h3>React Native</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="80"></div>
-                    </div>
-                </div>
-                <div class="skill-card" data-skill="typescript">
-                    <div class="skill-icon">
-                        <i class="fab fa-js"></i>
-                    </div>
-                    <h3>TypeScript</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="75"></div>
-                    </div>
-                </div>
-                <div class="skill-card" data-skill="java">
-                    <div class="skill-icon">
-                        <i class="fab fa-java"></i>
-                    </div>
-                    <h3>Java / Spring Boot</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="70"></div>
-                    </div>
-                </div>
-                <div class="skill-card" data-skill="git">
-                    <div class="skill-icon">
-                        <i class="fab fa-git-alt"></i>
-                    </div>
-                    <h3>Git / GitHub</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="85"></div>
-                    </div>
-                </div>
-                <div class="skill-card" data-skill="expo">
-                    <div class="skill-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Expo</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="80"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Proyectos -->
-    <section id="proyectos" class="projects">
-        <div class="projects-particles"></div>
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Mi Trabajo</span>
-                <h2 class="section-title">Proyectos</h2>
-            </div>
-            <div class="projects-grid">
-                <article class="project-card" data-project-url="https://github.com/FelipeAguirreA/TODO-react-native-expo-API">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <a href="https://github.com/FelipeAguirreA/TODO-react-native-expo-API" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                        <div class="project-placeholder">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-category">Mobile App</span>
-                        <h3>TODO App - React Native</h3>
-                        <p>Aplicación TODO en React Native (Expo) + TypeScript consumiendo API. Gestión de tareas con persistencia.</p>
-                        <div class="project-tech">
-                            <span>React Native</span>
-                            <span>Expo</span>
-                            <span>TypeScript</span>
-                            <span>API</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="project-card" data-project-url="https://github.com/FelipeAguirreA/gestion-practicas-api">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <a href="https://github.com/FelipeAguirreA/gestion-practicas-api" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                        <div class="project-placeholder">
-                            <i class="fas fa-server"></i>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-category">Backend API</span>
-                        <h3>Gestión de Prácticas API</h3>
-                        <p>API Spring Boot para gestión de prácticas: endpoints RESTful, validaciones y estructura de datos.</p>
-                        <div class="project-tech">
-                            <span>Java</span>
-                            <span>Spring Boot</span>
-                            <span>REST API</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="project-card" data-project-url="https://github.com/FelipeAguirreA/sabor-gourmet-springboot-reservas">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <a href="https://github.com/FelipeAguirreA/sabor-gourmet-springboot-reservas" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                        <div class="project-placeholder">
-                            <i class="fas fa-utensils"></i>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-category">Sistema Web</span>
-                        <h3>Sabor Gourmet - Reservas</h3>
-                        <p>Sistema de reservas para restaurante con Spring Boot: lógica de negocio, reglas y persistencia.</p>
-                        <div class="project-tech">
-                            <span>Spring Boot</span>
-                            <span>Java</span>
-                            <span>HTML</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="project-card" data-project-url="https://github.com/FelipeAguirreA/login-crud">
-                    <div class="project-image">
-                        <div class="project-overlay">
-                            <a href="https://github.com/FelipeAguirreA/login-crud" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                        <div class="project-placeholder">
-                            <i class="fas fa-user-lock"></i>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-category">Full Stack</span>
-                        <h3>Login CRUD</h3>
-                        <p>Sistema de autenticación con conexión a APIs y manejo de errores. CRUD completo de usuarios.</p>
-                        <div class="project-tech">
-                            <span>TypeScript</span>
-                            <span>React Native</span>
-                            <span>API</span>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certificados -->
-    <section id="certificados" class="certificates">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Mis Logros</span>
-                <h2 class="section-title">Certificados</h2>
-            </div>
-            <div class="certificates-slider">
-                <div class="certificate-card" data-cert-image="assets/images/certificado.png" data-cert-title="Desarrollo Web Full Stack" data-cert-desc="Certificación profesional en desarrollo de habilidades personales para el liderazgo.">
-                    <div class="certificate-image">
-                        <img src="assets/images/certificado.png" alt="Certificado 1">
-                    </div>
-                    <div class="certificate-info">
-                        <h3>Desarrollo de habilidades personales para el liderazgo</h3>
-                        <p>Certificación profesional en desarrollo de habilidades personales para el liderazgo.</p>
-                    </div>
-                </div>
-                <div class="certificate-card" data-cert-image="assets/images/certificado-zenda.png" data-cert-title="Zenda Avanzado" data-cert-desc="Especialización en sistema Zenda">
-                    <div class="certificate-image">
-                        <img src="assets/images/certificado-zenda.png" alt="Certificado Zenda">
-                    </div>
-                    <div class="certificate-info">
-                        <h3>Zenda Avanzado</h3>
-                        <p>Especialización en sistema Zenda</p>
-                    </div>
-                </div>
-                <div class="certificate-card" data-cert-image="assets/images/certificado-panel-erp.png" data-cert-title="Panel ERP" data-cert-desc="Gestión de sistemas ERP empresariales">
-                    <div class="certificate-image">
-                        <img src="assets/images/certificado-panel-erp.png" alt="Certificado Panel ERP">
-                    </div>
-                    <div class="certificate-info">
-                        <h3>Panel ERP</h3>
-                        <p>Gestión de sistemas ERP empresariales</p>
-                    </div>
-                </div>
-                <div class="certificate-card" data-cert-image="assets/images/certificado-genesis-avanzado.png" data-cert-title="Genesis Avanzado" data-cert-desc="Certificación avanzada en Genesis">
-                    <div class="certificate-image">
-                        <img src="assets/images/certificado-genesis-avanzado.png" alt="Certificado Genesis">
-                    </div>
-                    <div class="certificate-info">
-                        <h3>Genesis Avanzado</h3>
-                        <p>Certificación avanzada en Genesis</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contacto -->
-    <section id="contacto" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Hablemos</span>
-                <h2 class="section-title">Contacto</h2>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>¿Tienes un proyecto en mente?</h3>
-                    <p>Estoy disponible para proyectos freelance y colaboraciones. ¡Hablemos sobre cómo puedo ayudarte!</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div>
-                                <span>Email</span>
-                                <a href="mailto:felipeaguirreee@gmail.com">felipeaguirreee@gmail.com</a>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fab fa-linkedin"></i>
-                            </div>
-                            <div>
-                                <span>LinkedIn</span>
-                                <a href="https://www.linkedin.com/in/felipe-aguirre-aravena" target="_blank">felipe-aguirre-aravena</a>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div>
-                                <span>Ubicación</span>
-                                <p>Chile</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/FelipeAguirreA" target="_blank" class="social-link" aria-label="GitHub">
-                            <i class="fab fa-github"></i>
+                <div class="featured__foot">
+                    <span class="project__tech">Next.js 16 · React 19 · TypeScript · Prisma · Supabase · HuggingFace · Docker</span>
+                    <div class="featured__links">
+                        <a href="https://practix.cl" target="_blank" rel="noopener" class="btn btn--solid">practix.cl
+                            <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
                         </a>
-                        <a href="https://www.linkedin.com/in/felipe-aguirre-aravena" target="_blank" class="social-link" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="mailto:felipeaguirreee@gmail.com" class="social-link" aria-label="Email">
-                            <i class="fas fa-envelope"></i>
-                        </a>
+                        <a href="https://github.com/FelipeAguirreA/web-master-proyecto" target="_blank" rel="noopener" class="btn btn--ghost">Código</a>
                     </div>
                 </div>
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" required>
-                        <label for="name">Nombre</label>
-                        <span class="focus-border"></span>
+            </article>
+            <div class="projects__list">
+                <a class="project" href="https://github.com/FelipeAguirreA/TODO-react-native-expo-API" target="_blank" rel="noopener" data-reveal>
+                    <span class="project__num">P-01</span>
+                    <div class="project__main">
+                        <h3 class="project__title">TODO App</h3>
+                        <p class="project__desc">App de tareas en React Native (Expo) + TypeScript consumiendo API, con persistencia.</p>
                     </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" required>
-                        <label for="email">Email</label>
-                        <span class="focus-border"></span>
+                    <div class="project__meta">
+                        <span class="project__cat">Mobile</span>
+                        <span class="project__tech">React Native · Expo · TypeScript</span>
                     </div>
-                    <div class="form-group">
-                        <input type="text" id="subject" name="subject" required>
-                        <label for="subject">Asunto</label>
-                        <span class="focus-border"></span>
+                    <svg class="project__arrow" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                </a>
+                <a class="project" href="https://github.com/FelipeAguirreA/gestion-practicas-api" target="_blank" rel="noopener" data-reveal>
+                    <span class="project__num">P-02</span>
+                    <div class="project__main">
+                        <h3 class="project__title">Gestión de Prácticas API</h3>
+                        <p class="project__desc">API Spring Boot: endpoints RESTful, validaciones y estructura de datos.</p>
                     </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                        <label for="message">Mensaje</label>
-                        <span class="focus-border"></span>
+                    <div class="project__meta">
+                        <span class="project__cat">Backend</span>
+                        <span class="project__tech">Java · Spring Boot · REST</span>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-full">
-                        <span>Enviar Mensaje</span>
-                        <i class="fas fa-paper-plane"></i>
+                    <svg class="project__arrow" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                </a>
+                <a class="project" href="https://github.com/FelipeAguirreA/sabor-gourmet-springboot-reservas" target="_blank" rel="noopener" data-reveal>
+                    <span class="project__num">P-03</span>
+                    <div class="project__main">
+                        <h3 class="project__title">Sabor Gourmet</h3>
+                        <p class="project__desc">Sistema de reservas para restaurante: lógica de negocio, reglas y persistencia.</p>
+                    </div>
+                    <div class="project__meta">
+                        <span class="project__cat">Sistema Web</span>
+                        <span class="project__tech">Spring Boot · Java · HTML</span>
+                    </div>
+                    <svg class="project__arrow" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                </a>
+                <a class="project" href="https://github.com/FelipeAguirreA/login-crud" target="_blank" rel="noopener" data-reveal>
+                    <span class="project__num">P-04</span>
+                    <div class="project__main">
+                        <h3 class="project__title">Login CRUD</h3>
+                        <p class="project__desc">Autenticación con conexión a APIs, manejo de errores y CRUD completo de usuarios.</p>
+                    </div>
+                    <div class="project__meta">
+                        <span class="project__cat">Full Stack</span>
+                        <span class="project__tech">TypeScript · React Native · API</span>
+                    </div>
+                    <svg class="project__arrow" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                </a>
+            </div>
+            <a class="collab" href="https://github.com/Lokyui/cuartoambulanteapp" target="_blank" rel="noopener" data-reveal>
+                <span class="collab__tag">Colaboración</span>
+                <div class="collab__main">
+                    <h3 class="collab__title">Cuarto Ambulante App</h3>
+                    <p class="collab__desc">
+                        Principal contribuidor en app de retail real: automatización de conteos
+                        diarios y mensuales, métricas y análisis de ventas para la tienda Cuarto Ambulante.
+                    </p>
+                </div>
+                <span class="project__tech">Python · Equipo de 3 · repo de Lokyui</span>
+                <svg class="project__arrow" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </a>
+            <p class="projects__more" data-reveal>
+                <a href="https://github.com/FelipeAguirreA" target="_blank" rel="noopener">Ver todo en GitHub
+                    <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                </a>
+            </p>
+        </section>
+
+        <!-- ============ CERTIFICADOS ============ -->
+        <section class="section certs" id="certificados">
+            <div class="section__head">
+                <span class="section__num">04</span>
+                <h2 class="section__title">Certifi<em>cados</em></h2>
+            </div>
+            <div class="carousel" data-reveal>
+                <div class="carousel__track" id="cert-track">
+                <button class="cert" data-tilt="-2.2"
+                    data-img="/assets/images/certificado.png"
+                    data-title="Habilidades personales para el liderazgo"
+                    data-desc="Certificación profesional en desarrollo de habilidades personales para el liderazgo.">
+                    <span class="cert__shine" aria-hidden="true"></span>
+                    <img src="/assets/images/certificado.png" alt="Certificado de liderazgo" loading="lazy">
+                    <span class="cert__name"><span class="cert__idx">C-01</span>Liderazgo</span>
+                </button>
+                <button class="cert" data-tilt="1.8"
+                    data-img="/assets/images/certificado-zenda.png"
+                    data-title="Zenda Avanzado"
+                    data-desc="Especialización en sistema Zenda.">
+                    <span class="cert__shine" aria-hidden="true"></span>
+                    <img src="/assets/images/certificado-zenda.png" alt="Certificado Zenda Avanzado" loading="lazy">
+                    <span class="cert__name"><span class="cert__idx">C-02</span>Zenda Avanzado</span>
+                </button>
+                <button class="cert" data-tilt="2.4"
+                    data-img="/assets/images/certificado-panel-erp.png"
+                    data-title="Panel ERP"
+                    data-desc="Gestión de sistemas ERP empresariales.">
+                    <span class="cert__shine" aria-hidden="true"></span>
+                    <img src="/assets/images/certificado-panel-erp.png" alt="Certificado Panel ERP" loading="lazy">
+                    <span class="cert__name"><span class="cert__idx">C-03</span>Panel ERP</span>
+                </button>
+                <button class="cert" data-tilt="-1.6"
+                    data-img="/assets/images/certificado-genesis-avanzado.png"
+                    data-title="Genesis Avanzado"
+                    data-desc="Certificación avanzada en Genesis.">
+                    <span class="cert__shine" aria-hidden="true"></span>
+                    <img src="/assets/images/certificado-genesis-avanzado.png" alt="Certificado Genesis Avanzado" loading="lazy">
+                    <span class="cert__name"><span class="cert__idx">C-04</span>Genesis Avanzado</span>
+                </button>
+                </div>
+                <div class="carousel__nav">
+                    <button class="carousel__btn" id="cert-prev" aria-label="Certificado anterior">
+                        <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M13 8H3M7 4 3 8l4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
                     </button>
+                    <span class="carousel__count" id="cert-count">01 / 04</span>
+                    <button class="carousel__btn" id="cert-next" aria-label="Certificado siguiente">
+                        <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                    </button>
+                    <span class="carousel__hint">arrastra o desliza</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CONTACTO ============ -->
+        <section class="section contact" id="contacto">
+            <div class="section__head">
+                <span class="section__num">05</span>
+                <h2 class="section__title">Hable<em>mos</em></h2>
+            </div>
+            <div class="contact__grid">
+                <div class="contact__info">
+                    <p class="contact__lead" data-reveal>
+                        ¿Viste algo que te gustó? Construyamos
+                        lo próximo juntos. <em>Escríbeme.</em>
+                    </p>
+                    <ul class="contact__channels" data-reveal>
+                        <li>
+                            <span class="contact__label">Email</span>
+                            <a href="mailto:felipeaguirreee@gmail.com">felipeaguirreee@gmail.com</a>
+                        </li>
+                        <li>
+                            <span class="contact__label">LinkedIn</span>
+                            <a href="https://www.linkedin.com/in/felipe-aguirre-aravena" target="_blank" rel="noopener">felipe-aguirre-aravena</a>
+                        </li>
+                        <li>
+                            <span class="contact__label">GitHub</span>
+                            <a href="https://github.com/FelipeAguirreA" target="_blank" rel="noopener">FelipeAguirreA</a>
+                        </li>
+                        <li>
+                            <span class="contact__label">Ubicación</span>
+                            <span>Chile</span>
+                        </li>
+                    </ul>
+                </div>
+                <form class="form" id="contact-form" data-reveal novalidate>
+                    <div class="form__field">
+                        <label for="name">Nombre <span class="form__req">*</span></label>
+                        <input type="text" id="name" name="name" required autocomplete="name" placeholder="Tu nombre">
+                    </div>
+                    <div class="form__field">
+                        <label for="email">Email <span class="form__req">*</span></label>
+                        <input type="email" id="email" name="email" required autocomplete="email" placeholder="tu@email.com">
+                    </div>
+                    <div class="form__field">
+                        <label for="subject">Asunto <span class="form__req">*</span></label>
+                        <input type="text" id="subject" name="subject" required placeholder="¿De qué quieres hablar?">
+                    </div>
+                    <div class="form__field">
+                        <label for="message">Mensaje <span class="form__req">*</span></label>
+                        <textarea id="message" name="message" rows="6" required placeholder="Cuéntame tu idea, proyecto u oportunidad…"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--solid form__submit">
+                        <span>Enviar mensaje</span>
+                        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                    </button>
+                    <p class="form__status" id="form-status" role="status"></p>
                 </form>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Footer -->
+    <!-- ============ FOOTER ============ -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <span class="logo-text">FA</span>
-                    <span class="logo-dot"></span>
-                </div>
-                <p>Diseñado y desarrollado con <i class="fas fa-heart"></i> por Felipe Aguirre</p>
-                <p class="copyright">&copy; 2025 Todos los derechos reservados</p>
+        <div class="footer__marquee" aria-hidden="true">
+            <div class="footer__track">
+                <span>Felipe Aguirre — Full Stack · Mobile · IA —&nbsp;</span>
+                <span>Felipe Aguirre — Full Stack · Mobile · IA —&nbsp;</span>
             </div>
+        </div>
+        <div class="footer__wordmark" aria-hidden="true">Felipe&nbsp;Aguirre</div>
+        <div class="footer__bottom">
+            <span class="footer__logo"><em>F</em>A<span class="nav__dot"></span></span>
+            <span class="footer__clock">Chile — <span id="local-time">--:--:--</span></span>
+            <div class="footer__social">
+                <a href="https://github.com/FelipeAguirreA" target="_blank" rel="noopener" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 .5A11.5 11.5 0 0 0 .5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.53-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.69 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.04.77 2.1v3.11c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/felipe-aguirre-aravena" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5A2.49 2.49 0 1 1 0 3.5a2.49 2.49 0 0 1 4.98 0ZM.24 8.31h4.52V23H.24V8.31Zm7.44 0h4.33v2h.06c.6-1.14 2.08-2.34 4.28-2.34 4.58 0 5.42 3.01 5.42 6.92V23h-4.51v-7.1c0-1.69-.03-3.87-2.36-3.87-2.36 0-2.72 1.84-2.72 3.74V23H7.68V8.31Z"/></svg>
+                </a>
+                <a href="mailto:felipeaguirreee@gmail.com" aria-label="Email">
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M2 5h20v14H2zM2 6l10 8L22 6"/></svg>
+                </a>
+            </div>
+            <p class="footer__copy">© 2026 Felipe Aguirre — hecho a mano, sin plantillas</p>
         </div>
     </footer>
 
-    <!-- Modal para Certificados -->
-    <div class="certificate-modal" id="certificateModal">
-        <div class="modal-content">
-            <button class="modal-close" aria-label="Cerrar modal">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-image">
-                <img id="modalImage" src="" alt="Certificado">
+    <!-- Lightbox certificados — galería con navegación -->
+    <dialog class="lightbox lightbox--cert" id="cert-dialog">
+        <div class="lightbox__frame">
+            <button class="lightbox__close" id="cert-close" aria-label="Cerrar">✕</button>
+            <div class="lightbox__media">
+                <img id="cert-img" src="" alt="">
             </div>
-            <div class="modal-info">
-                <h2 id="modalTitle"></h2>
-                <p id="modalDescription"></p>
-            </div>
-        </div>
-        <div class="modal-overlay"></div>
-    </div>
-
-    </div><!-- #smooth-content -->
-    </div><!-- #smooth-wrapper -->
-
-    <!-- Success Modal -->
-    <div id="success-modal" class="modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="success-icon">
-                    <i class="fas fa-check-circle"></i>
+            <div class="lightbox__panel">
+                <p class="lightbox__label">Certificado <span id="cert-counter">01 / 04</span></p>
+                <h3 id="cert-title"></h3>
+                <p class="lightbox__desc" id="cert-desc"></p>
+                <div class="lightbox__nav">
+                    <button class="carousel__btn" id="cert-d-prev" aria-label="Anterior">
+                        <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M13 8H3M7 4 3 8l4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                    </button>
+                    <button class="carousel__btn" id="cert-d-next" aria-label="Siguiente">
+                        <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                    </button>
+                    <span class="lightbox__hint">← → navegar · esc cerrar</span>
                 </div>
-                <h2>¡Mensaje enviado!</h2>
-                <p>Gracias por contactarme. He recibido tu mensaje y me pondré en contacto pronto.</p>
-                <button class="btn btn-primary" onclick="closeSuccessModal()">
-                    <span>Cerrar</span>
-                </button>
             </div>
         </div>
-    </div>
+    </dialog>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-    <script src="js/script.js"></script>
+    <!-- Dialog éxito formulario -->
+    <dialog class="lightbox lightbox--success" id="success-dialog">
+        <div class="success">
+            <svg viewBox="0 0 52 52" width="52" height="52" aria-hidden="true">
+                <circle cx="26" cy="26" r="24" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M15 27l8 8 14-16" fill="none" stroke="currentColor" stroke-width="2.4"/>
+            </svg>
+            <h3>Mensaje enviado</h3>
+            <p>Gracias por escribir. Te responderé pronto.</p>
+            <button class="btn btn--ghost" id="success-close">Cerrar</button>
+        </div>
+    </dialog>
+
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>

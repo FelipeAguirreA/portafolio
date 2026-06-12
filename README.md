@@ -1,112 +1,59 @@
-# 🚀 Portafolio Felipe Aguirre
+# Felipe Aguirre — Portafolio
 
-Portafolio profesional moderno con animaciones GSAP, cursor fluido WebGL y envío de correo real mediante Vercel Functions + Resend.
+Portafolio personal como showcase 3D/WebGL: una escena procedural persistente con timeline cinematográfica que evoluciona con el scroll.
 
-## 📁 Estructura del Proyecto
+**→ Estética "Obsidiana editorial"**: grafito casi negro, tipografía Fraunces + Archivo + Spline Sans Mono, y color grading de cine por capítulos (chartreuse · ámbar · teal · dorado).
 
-```
-portafolio/
-├── index.html          # Página principal
-├── css/
-│   └── style.css       # Estilos
-├── js/
-│   └── script.js       # Animaciones
-├── assets/images/      # Imágenes
-├── README.md           # Documentación
-└── .git/               # Control de versiones
-```
+## Stack
 
-## ✨ Características
+- **Vite 5** — build y dev server
+- **Three.js** — núcleo procedural (icosaedro + FBM displacement + fresnel), halo de partículas con morph a monograma "FA"
+- **Theatre.js** (`@theatre/core`) — timeline cinematográfica: intro de cámara + scrub por scroll + color grading. En dev, `@theatre/studio` permite editar keyframes en vivo
+- **GSAP + ScrollTrigger** — motion del DOM (reveals, contadores, carrusel, magnetismo)
+- **Vercel Functions + Resend** — formulario de contacto (`api/send-email.js`)
 
-- ✅ Animaciones modernas con **GSAP v3.12.2** (ScrollTrigger, ScrollTo)
-- ✅ Cursor fluido WebGL con shaders personalizados
-- ✅ Barra de progreso de scroll con degradado y glow
-- ✅ Modal de confirmación al enviar formulario (GSAP)
-- ✅ Partículas y efectos parallax sutiles
-- ✅ Formulario de contacto real vía **Vercel Functions + Resend**
-- ✅ Responsive design y navegación suave
-
-## ️🛠️ Tecnologías
-
-- **HTML5** - Estructura semántica
-- **CSS3** - Estilos y responsividad
-- **JavaScript ES6+** - Interactividad
-- **GSAP v3.12.2** - Animaciones
-- **ScrollTrigger** - Scroll-based animations
-- **Font Awesome 6.4.0** - Iconos
- - **Vercel Functions** - API serverless para envío de email
- - **Resend** - Servicio de email transaccional
-
-## 🚀 Desarrollo Local
+## Desarrollo
 
 ```bash
-# Servidor local simple (opción rápida)
-python -m http.server 8000
-# Accede a http://localhost:8000
-
-# Desarrollo con Vercel (Functions)
 npm install
-vercel dev
-# Accede a http://localhost:3000
+npm run dev        # Vite en http://localhost:5173 (formulario NO funciona acá)
+vercel dev         # Vite + Functions — necesario para probar el formulario
+npm run build      # build de producción en dist/
+npm run preview    # servir el build
 ```
 
-### Variables de Entorno
+Para el formulario en local: crear `.env.local` con `RESEND_API_KEY=...` y usar `vercel dev`.
 
-Para probar el formulario en local, crea un archivo `.env.local` en la raíz:
+## Estructura
 
 ```
-RESEND_API_KEY=tu_api_key_de_resend
+index.html                  # entry de Vite
+api/send-email.js           # Vercel Function (Resend)
+public/assets/images/       # fotos y certificados
+src/
+  main.js                   # boot: loader → escena → theatre → UI
+  scene/scene.js            # Three.js: núcleo, partículas, cámara
+  scene/shaders.js          # GLSL: simplex/FBM, fresnel, morph
+  theatre/sequence.js       # objetos Theatre + intro + scrub + letterbox
+  theatre/state.json        # keyframes de la timeline (editable con Studio)
+  ui/loader.js              # preloader con contador y cortina
+  ui/ui.js                  # nav, reveals, títulos, carrusel, lightbox, tilt
+  ui/contact.js             # formulario → /api/send-email
+  styles/main.css           # sistema de diseño completo
 ```
 
-Luego reinicia `vercel dev`.
+## Editar la animación (Theatre.js Studio)
 
-## 📮 Envío de Emails (Producción)
+En `npm run dev` aparece el Studio: ajustá keyframes de cámara/núcleo/partículas en vivo, exportá el JSON del proyecto y reemplazá `src/theatre/state.json`.
 
-- Endpoint serverless: [api/send-email.js](api/send-email.js)
-- Usa **Resend** con sandbox (remitente `onboarding@resend.dev`)
-- En Vercel → Settings → Environment Variables agrega `RESEND_API_KEY` con scope Production. Tras cambiarla, realiza un redeploy completo.
-
-## 🔧 Despliegue
+## Deploy
 
 ```bash
-# Deploy con Vercel
-vercel
 vercel --prod
 ```
 
-O desde la UI: Deployments → ⋮ → Redeploy (sin caché).
-
-## 🧩 Notas de Animación
-
-- Se evita ScrollSmoother para compatibilidad; se mantiene smooth scroll nativo.
-- Animaciones con `gsap.set + gsap.fromTo` para garantizar visibilidad inicial (evita elementos invisibles si el trigger no dispara).
-- El modal de éxito se reinicia en cada apertura (`gsap.killTweensOf` + estados iniciales).
-
-## 🔒 Seguridad
-
-- Nunca expongas `RESEND_API_KEY` en el frontend ni lo subas al repo.
-- Usa variables de entorno en Vercel (Settings → Environment Variables) y `.env.local` en desarrollo. Estos archivos ya están ignorados por `.gitignore`.
-- Si tu plan lo permite, marca la variable como "Sensitive" para ocultar su valor en la UI.
-- Tras modificar env vars, haz redeploy completo (sin caché) para que los cambios apliquen.
-- La API responde con errores genéricos al cliente y registra detalles en logs del servidor.
-
-## 🛠️ Troubleshooting
-
-- 404 de imágenes en producción: respeta mayúsculas/minúsculas (ej. `git.PNG` vs `git.png`).
-- CDN 404 de ScrollSmoother: fue removido (no se usa).
-- Si ves `Missing API key` en `/api/send-email`: revisa `RESEND_API_KEY` y redeploy completo.
-- Si iconos/elementos no aparecen al primer scroll: usa `ScrollTrigger.refresh()` o verifica que se usa `fromTo` y `gsap.set`.
-
-## 📧 Contacto
-
-- Email: felipeaguirreee@gmail.com
-- GitHub: [FelipeAguirreA](https://github.com/FelipeAguirreA)
-- LinkedIn: [Felipe Aguirre](https://linkedin.com/in/felipe-aguirre-aravena-489188a1)
+Vercel detecta Vite automáticamente. La env var `RESEND_API_KEY` debe estar en Settings → Environment Variables (scope Production); tras cambiarla, redeploy completo sin caché.
 
 ---
 
-**© 2025 Felipe Aguirre. All rights reserved.**
-
----
-
-Desarrollado con ❤️ por Felipe Aguirre
+© 2026 Felipe Aguirre
