@@ -13,10 +13,24 @@ export function initLoader({ reduced = false } = {}) {
       <span class="loader__logo"><em>F</em>A<span class="loader__dot"></span></span>
       <span class="loader__count">00</span>
     </div>
+    <div class="loader__log" aria-hidden="true">
+      <span>&gt; INICIANDO FA·SYS 2.0</span>
+      <span>&gt; CARGANDO ESCENA 3D ........ OK</span>
+      <span>&gt; COMPILANDO SHADERS ........ OK</span>
+      <span>&gt; TIPOGRAFÍA ................ OK</span>
+      <span>&gt; ABRIENDO VENTANAS_</span>
+    </div>
     <span class="loader__bar"></span>
   `
   document.body.appendChild(el)
   document.body.classList.add('is-loading')
+
+  // las líneas del boot se encienden en secuencia
+  gsap.fromTo(
+    el.querySelectorAll('.loader__log span'),
+    { opacity: 0 },
+    { opacity: 1, duration: 0.05, stagger: 0.28, ease: 'none' }
+  )
 
   const count = el.querySelector('.loader__count')
   const bar = el.querySelector('.loader__bar')

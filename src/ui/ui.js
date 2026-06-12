@@ -5,6 +5,28 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// envuelve cada carácter en un span.char, preservando elementos hijos (<em>)
+function splitChars(el) {
+  const wrap = (node) => {
+    ;[...node.childNodes].forEach((n) => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment()
+        for (const ch of n.textContent) {
+          if (ch.trim() === '') frag.append(ch)
+          else {
+            const s = document.createElement('span')
+            s.className = 'char'
+            s.textContent = ch
+            frag.append(s)
+          }
+        }
+        n.replaceWith(frag)
+      } else wrap(n)
+    })
+  }
+  wrap(el)
+}
+
 export function initUI({ reduced = false } = {}) {
   // ---- Nav: fondo al scrollear ----
   const nav = document.getElementById('nav')
@@ -79,25 +101,7 @@ export function initUI({ reduced = false } = {}) {
   // ---- Títulos: revelado letra por letra + subrayado que se dibuja ----
   if (!reduced) {
     document.querySelectorAll('.section__title').forEach((title) => {
-      // envolver cada carácter (preservando <em>)
-      const wrap = (node) => {
-        ;[...node.childNodes].forEach((n) => {
-          if (n.nodeType === 3) {
-            const frag = document.createDocumentFragment()
-            for (const ch of n.textContent) {
-              if (ch.trim() === '') frag.append(ch)
-              else {
-                const s = document.createElement('span')
-                s.className = 'char'
-                s.textContent = ch
-                frag.append(s)
-              }
-            }
-            n.replaceWith(frag)
-          } else wrap(n)
-        })
-      }
-      wrap(title)
+      splitChars(title)
 
       // flourish: trazo que se dibuja bajo el título
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
@@ -133,6 +137,31 @@ export function initUI({ reduced = false } = {}) {
             ease: 'power2.inOut',
           })
         },
+      })
+    })
+  }
+
+  // ---- Hero: letras vivas — saltan al pasar el cursor ----
+  if (!reduced && matchMedia('(pointer: fine)').matches) {
+    document.querySelectorAll('.hero__line').forEach((line) => {
+      splitChars(line)
+      line.querySelectorAll('.char').forEach((ch) => {
+        ch.addEventListener('pointerenter', () => {
+          gsap.fromTo(
+            ch,
+            { y: 0, rotation: 0 },
+            {
+              y: -16,
+              rotation: gsap.utils.random(-9, 9),
+              duration: 0.18,
+              ease: 'power2.out',
+              yoyo: true,
+              repeat: 1,
+              overwrite: 'auto',
+              onComplete: () => gsap.set(ch, { y: 0, rotation: 0 }),
+            }
+          )
+        })
       })
     })
   }

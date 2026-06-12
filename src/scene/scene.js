@@ -8,14 +8,21 @@ import {
   Fog,
   Color,
   IcosahedronGeometry,
+  TorusGeometry,
   ShaderMaterial,
   Mesh,
   MeshBasicMaterial,
+  PointsMaterial,
+  LineBasicMaterial,
+  LineSegments,
+  Group,
   BufferGeometry,
   BufferAttribute,
   Points,
+  Line,
   AdditiveBlending,
   Clock,
+  Vector3,
 } from 'three'
 import {
   coreVertex,
@@ -34,9 +41,12 @@ export function initScene({ reduced = false } = {}) {
 
   // Estado que Theatre.js muta cada frame
   const params = {
-    camera: { distance: 8.4, height: 0.5, orbit: 0 },
-    core: { distortion: 0.85, speed: 0.3, glow: 0.75, grade: 0 },
-    particles: { opacity: 0.8, spread: 1, morph: 0 },
+    // userOrbit: órbita manual por drag — se suma a la de Theatre
+    // warp: salto al hiperespacio (FOV) al navegar por el menú
+    camera: { distance: 8.4, height: 0.5, orbit: 0, userOrbit: 0, warp: 0 },
+    // flash/kick y pulse son multiplicadores de impulso (HUD) — Theatre no los toca
+    core: { distortion: 0.85, speed: 0.3, glow: 0.75, grade: 0, flash: 1, kick: 1 },
+    particles: { opacity: 0.8, spread: 1, morph: 0, pulse: 1 },
   }
 
   let renderer
@@ -78,17 +88,107 @@ export function initScene({ reduced = false } = {}) {
   core.position.y = 0.2
   scene.add(core)
 
-  // Cáscara wireframe — profundidad y estructura
-  const shellGeo = new IcosahedronGeometry(3.1, 1)
-  const shellMat = new MeshBasicMaterial({
-    color: new Color(ACCENT),
-    wireframe: true,
-    transparent: true,
-    opacity: 0.05,
+  // ---- Giroscopio orbital: anillos con precesión alrededor del núcleo ----
+  const accentC = new Color(ACCENT)
+  const coolC = new Color(COOL)
+  const tmpColor = new Color()
+
+  const rings = new Group()
+  const ringDefs = [
+    { r: 3.5, tilt: [Math.PI / 2.3, 0.4], speed: 0.16 },
+    { r: 4.3, tilt: [0.6, Math.PI / 2.6], speed: -0.11 },
+    { r: 5.2, tilt: [1.9, 1.1], speed: 0.07 },
+  ]
+  const ringMats = []
+  ringDefs.forEach((d) => {
+    const mat = new MeshBasicMaterial({
+      color: accentC.clone(),
+      transparent: true,
+      opacity: 0.16,
+      depthWrite: false,
+    })
+    const ring = new Mesh(new TorusGeometry(d.r, 0.012, 6, 160), mat)
+    ring.rotation.set(d.tilt[0], d.tilt[1], 0)
+    rings.add(ring)
+    ringMats.push(mat)
   })
-  const shell = new Mesh(shellGeo, shellMat)
-  shell.position.y = 0.2
-  scene.add(shell)
+  rings.position.y = 0.2
+  scene.add(rings)
+
+  // ---- Red neuronal: nodos conectados, con paquetes de datos viajando ----
+  const NODE_COUNT = isMobile ? 42 : 72
+  const nodePos = []
+  for (let i = 0; i < NODE_COUNT; i++) {
+    const r = 5.4 + Math.random() * 2.2
+    const theta = Math.random() * Math.PI * 2
+    const phi = Math.acos(2 * Math.random() - 1)
+    nodePos.push([
+      r * Math.sin(phi) * Math.cos(theta),
+      r * Math.cos(phi) * 0.62 + 0.2,
+      r * Math.sin(phi) * Math.sin(theta),
+    ])
+  }
+  // cada nodo se conecta a sus 2 vecinos más cercanos
+  const edges = []
+  const seenEdge = new Set()
+  nodePos.forEach((a, i) => {
+    const dists = nodePos
+      .map((b, j) => ({ j, d: (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2 }))
+      .filter((e) => e.j !== i)
+      .sort((x, y) => x.d - y.d)
+      .slice(0, 2)
+    dists.forEach(({ j }) => {
+      const key = i < j ? `${i}-${j}` : `${j}-${i}`
+      if (!seenEdge.has(key)) {
+        seenEdge.add(key)
+        edges.push([nodePos[i], nodePos[j]])
+      }
+    })
+  })
+  const linePositions = new Float32Array(edges.length * 6)
+  edges.forEach(([a, b], i) => {
+    linePositions.set([...a, ...b], i * 6)
+  })
+  const lineGeo = new BufferGeometry()
+  lineGeo.setAttribute('position', new BufferAttribute(linePositions, 3))
+  const lineMat = new LineBasicMaterial({
+    color: new Color(BONE),
+    transparent: true,
+    opacity: 0.07,
+    depthWrite: false,
+  })
+  scene.add(new LineSegments(lineGeo, lineMat))
+
+  const nodeGeo = new BufferGeometry()
+  nodeGeo.setAttribute('position', new BufferAttribute(new Float32Array(nodePos.flat()), 3))
+  const nodeMat = new PointsMaterial({
+    color: new Color(BONE),
+    size: 0.06,
+    transparent: true,
+    opacity: 0.45,
+    depthWrite: false,
+  })
+  scene.add(new Points(nodeGeo, nodeMat))
+
+  // paquetes de datos: luces que viajan por las conexiones
+  const PACKETS = isMobile ? 5 : 10
+  const packetState = Array.from({ length: PACKETS }, () => ({
+    edge: (Math.random() * edges.length) | 0,
+    t: Math.random(),
+    speed: 0.25 + Math.random() * 0.45,
+  }))
+  const packetArr = new Float32Array(PACKETS * 3)
+  const packetGeo = new BufferGeometry()
+  packetGeo.setAttribute('position', new BufferAttribute(packetArr, 3))
+  const packetMat = new PointsMaterial({
+    color: accentC.clone(),
+    size: 0.17,
+    transparent: true,
+    opacity: 0.95,
+    blending: AdditiveBlending,
+    depthWrite: false,
+  })
+  scene.add(new Points(packetGeo, packetMat))
 
   // ---- Halo de partículas ----
   const COUNT = isMobile ? 420 : 1100
@@ -175,9 +275,14 @@ export function initScene({ reduced = false } = {}) {
   })
 
   function updateCamera() {
-    const { distance, height, orbit } = params.camera
+    const { distance, height, orbit, userOrbit, warp } = params.camera
+    const fov = 50 + warp * 24
+    if (camera.fov !== fov) {
+      camera.fov = fov
+      camera.updateProjectionMatrix()
+    }
     const aspectBoost = camera.aspect < 0.8 ? 1.4 : 1
-    const angle = orbit * Math.PI * 2
+    const angle = (orbit + userOrbit) * Math.PI * 2
     camera.position.set(
       Math.sin(angle) * distance * aspectBoost + mouse.x * 0.7,
       height + mouse.y * -0.45,
@@ -186,20 +291,113 @@ export function initScene({ reduced = false } = {}) {
     camera.lookAt(0, 0.2, 0)
   }
 
+  let prevT = 0
   function applyParams(t) {
+    const dt = Math.max(0, t - prevT)
+    prevT = t
+
     coreMat.uniforms.uTime.value = t
-    coreMat.uniforms.uDistortion.value = params.core.distortion
+    coreMat.uniforms.uDistortion.value = params.core.distortion * params.core.kick
     coreMat.uniforms.uSpeed.value = params.core.speed
-    coreMat.uniforms.uGlow.value = params.core.glow
+    coreMat.uniforms.uGlow.value = params.core.glow * params.core.flash
     coreMat.uniforms.uGrade.value = params.core.grade
     pMat.uniforms.uGrade.value = params.core.grade
     pMat.uniforms.uTime.value = t
-    pMat.uniforms.uSpread.value = params.particles.spread
+    pMat.uniforms.uSpread.value = params.particles.spread * params.particles.pulse
     pMat.uniforms.uOpacity.value = params.particles.opacity
     pMat.uniforms.uMorph.value = params.particles.morph
-    shell.rotation.y = t * 0.03
-    shell.rotation.x = t * 0.012
     core.rotation.y = t * 0.05
+
+    // grading compartido: anillos y paquetes viran con el capítulo
+    tmpColor.copy(accentC).lerp(coolC, params.core.grade)
+
+    // precesión de los anillos — el flash del núcleo los enciende
+    rings.children.forEach((ring, i) => {
+      const d = ringDefs[i]
+      ring.rotation.x = d.tilt[0] + Math.sin(t * d.speed) * 0.45
+      ring.rotation.y = d.tilt[1] + Math.cos(t * d.speed * 0.8) * 0.55
+      ringMats[i].color.copy(tmpColor)
+      ringMats[i].opacity = 0.16 * params.core.flash
+    })
+
+    // paquetes de datos recorriendo la red
+    packetMat.color.copy(tmpColor)
+    packetState.forEach((p, i) => {
+      p.t += p.speed * dt * params.particles.pulse
+      if (p.t >= 1) {
+        p.t = 0
+        p.edge = (Math.random() * edges.length) | 0
+      }
+      const [a, b] = edges[p.edge]
+      packetArr[i * 3] = a[0] + (b[0] - a[0]) * p.t
+      packetArr[i * 3 + 1] = a[1] + (b[1] - a[1]) * p.t
+      packetArr[i * 3 + 2] = a[2] + (b[2] - a[2]) * p.t
+    })
+    packetGeo.attributes.position.needsUpdate = true
+
+    // la red se desvanece cuando las partículas forman el FA (final)
+    const fade = 1 - params.particles.morph * 0.8
+    lineMat.opacity = 0.07 * fade
+    nodeMat.opacity = 0.45 * fade
+    packetMat.opacity = 0.95 * fade
+
+    // cometas cruzando el fondo
+    comets.forEach((c) => {
+      if (c.life >= 1) {
+        if (t >= c.nextAt) spawnComet(c, t)
+        else {
+          c.mat.opacity = 0
+          return
+        }
+      }
+      c.life += dt * 0.55
+      const head = c.start.clone().addScaledVector(c.dir, c.speed * c.life)
+      const tail = head.clone().addScaledVector(c.dir, -2.6)
+      const arr = c.geo.attributes.position.array
+      arr[0] = head.x
+      arr[1] = head.y
+      arr[2] = head.z
+      arr[3] = tail.x
+      arr[4] = tail.y
+      arr[5] = tail.z
+      c.geo.attributes.position.needsUpdate = true
+      c.mat.opacity = Math.sin(Math.min(c.life, 1) * Math.PI) * 0.55
+    })
+  }
+
+  // ---- Cometas: eventos del universo ----
+  const COMET_COUNT = isMobile ? 2 : 3
+  const comets = []
+  for (let i = 0; i < COMET_COUNT; i++) {
+    const geo = new BufferGeometry()
+    geo.setAttribute('position', new BufferAttribute(new Float32Array(6), 3))
+    const mat = new LineBasicMaterial({
+      color: new Color(BONE),
+      transparent: true,
+      opacity: 0,
+      blending: AdditiveBlending,
+      depthWrite: false,
+    })
+    scene.add(new Line(geo, mat))
+    comets.push({
+      geo,
+      mat,
+      start: new Vector3(),
+      dir: new Vector3(),
+      life: 2, // empieza "muerto"
+      nextAt: 2 + Math.random() * 6,
+      speed: 1,
+    })
+  }
+  function spawnComet(c, t) {
+    const side = Math.random() < 0.5 ? -1 : 1
+    c.start.set(side * (14 + Math.random() * 4), 2 + Math.random() * 6, -6 - Math.random() * 8)
+    c.dir
+      .set(-side * (0.7 + Math.random() * 0.3), -(0.15 + Math.random() * 0.3), 0.25 * (Math.random() - 0.5))
+      .normalize()
+    c.speed = 14 + Math.random() * 10
+    c.life = 0
+    c.nextAt = t + 5 + Math.random() * 9
   }
 
   const clock = new Clock()

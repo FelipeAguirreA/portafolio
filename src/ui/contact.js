@@ -28,7 +28,7 @@ export function initContact() {
     const label = btn.querySelector('span')
     const original = label.textContent
     btn.disabled = true
-    label.textContent = 'Enviando…'
+    label.textContent = 'Transmitiendo…'
     status.textContent = ''
     status.classList.remove('form__status--error')
 
@@ -52,7 +52,7 @@ export function initContact() {
     } catch (err) {
       console.error('Error enviando formulario:', err)
       status.textContent =
-        'No se pudo enviar el mensaje. Intenta de nuevo o escríbeme directo a felipeaguirreee@gmail.com'
+        '// ERROR DE CANAL — intenta de nuevo o escríbeme directo a felipeaguirreee@gmail.com'
       status.classList.add('form__status--error')
     } finally {
       btn.disabled = false

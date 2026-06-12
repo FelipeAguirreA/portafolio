@@ -17,6 +17,7 @@
 
     <!-- Escena 3D persistente -->
     <canvas id="scene" aria-hidden="true"></canvas>
+    <div class="aurora" aria-hidden="true"></div>
     <div class="vignette" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
 
@@ -91,6 +92,7 @@
                 <span>scroll</span>
                 <div class="hero__scroll-line"></div>
             </div>
+            <span class="hero__hint" aria-hidden="true">[ arrastra para orbitar · click para pulsar ]</span>
         </section>
 
         <!-- ============ SOBRE MÍ ============ -->
@@ -195,6 +197,7 @@
                 <h2 class="section__title">Proyec<em>tos</em></h2>
             </div>
             <article class="featured" data-reveal>
+                <span class="featured__beam" aria-hidden="true"></span>
                 <p class="featured__tag"><span class="pulse"></span>Proyecto destacado — en producción</p>
                 <h3 class="featured__title">Prac<em>tiX</em></h3>
                 <p class="featured__desc">
@@ -403,11 +406,16 @@
     <footer class="footer">
         <div class="footer__marquee" aria-hidden="true">
             <div class="footer__track">
-                <span>Felipe Aguirre — Full Stack · Mobile · IA —&nbsp;</span>
-                <span>Felipe Aguirre — Full Stack · Mobile · IA —&nbsp;</span>
+                <span>Felipe Aguirre — Full Stack · Mobile · IA</span>
             </div>
         </div>
-        <div class="footer__wordmark" aria-hidden="true">Felipe&nbsp;Aguirre</div>
+        <div class="footer__end">
+            <p class="footer__end-title">— fin de la transmisión —</p>
+            <p class="footer__end-stats">
+                sesión <b id="end-time">00:00</b> · <b id="end-scroll">0</b> px recorridos · <b id="end-chapters">00/05</b> capítulos visitados
+            </p>
+            <p class="footer__end-thanks">gracias por la visita<span class="caret">_</span></p>
+        </div>
         <div class="footer__bottom">
             <span class="footer__logo"><em>F</em>A<span class="nav__dot"></span></span>
             <span class="footer__clock">Chile — <span id="local-time">--:--:--</span></span>
@@ -457,8 +465,8 @@
                 <circle cx="26" cy="26" r="24" fill="none" stroke="currentColor" stroke-width="2"/>
                 <path d="M15 27l8 8 14-16" fill="none" stroke="currentColor" stroke-width="2.4"/>
             </svg>
-            <h3>Mensaje enviado</h3>
-            <p>Gracias por escribir. Te responderé pronto.</p>
+            <h3>Transmisión recibida</h3>
+            <p>// 200 OK — gracias por escribir, te responderé pronto.</p>
             <button class="btn btn--ghost" id="success-close">Cerrar</button>
         </div>
     </dialog>
