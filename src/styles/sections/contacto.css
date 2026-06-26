@@ -112,6 +112,20 @@
     outline: none;
 }
 
+/* Autofill del navegador: mantener el input transparente y el texto legible.
+   El truco del transition larguisimo evita que el fondo claro forzado del
+   autofill llegue a verse; -webkit-text-fill-color arregla el color del texto. */
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus,
+.form-group textarea:-webkit-autofill,
+.form-group textarea:-webkit-autofill:hover,
+.form-group textarea:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--color-text);
+    caret-color: var(--color-text);
+    transition: background-color 9999s ease-in-out 0s;
+}
+
 .form-group label {
     position: absolute;
     left: 0;
@@ -129,8 +143,10 @@
 
 .form-group input:focus ~ label,
 .form-group input:valid ~ label,
+.form-group input:-webkit-autofill ~ label,
 .form-group textarea:focus ~ label,
-.form-group textarea:valid ~ label {
+.form-group textarea:valid ~ label,
+.form-group textarea:-webkit-autofill ~ label {
     top: -10px;
     font-size: 0.8rem;
     color: var(--color-primary-light);
