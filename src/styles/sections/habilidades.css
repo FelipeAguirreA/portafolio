@@ -16,7 +16,7 @@
 .skill-group {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
-    border-radius: var(--border-radius-lg);
+    border-radius: 3px;
     padding: 32px 28px;
     transition: var(--transition-normal);
     position: relative;
@@ -29,17 +29,16 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: var(--gradient-primary);
+    height: 2px;
+    background: var(--chapter);
     transform: scaleX(0);
     transform-origin: left;
     transition: var(--transition-normal);
 }
 
 .skill-group:hover {
-    transform: translateY(-6px);
-    border-color: var(--color-primary);
-    box-shadow: 0 20px 40px rgba(205, 243, 47, 0.12);
+    transform: translateY(-3px);
+    border-color: var(--chapter);
 }
 
 .skill-group:hover::before {
@@ -47,11 +46,12 @@
 }
 
 .skill-group__title {
-    font-family: var(--font-primary);
-    font-size: 0.9rem;
+    font-family: var(--font-secondary);
+    font-size: 0.78rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--color-primary);
+    letter-spacing: 0.16em;
+    color: var(--chapter);
     margin-bottom: 22px;
     padding-bottom: 14px;
     border-bottom: 1px solid var(--color-border);
@@ -64,18 +64,18 @@
 }
 
 .skill-tags span {
-    padding: 7px 14px;
-    border-radius: 20px;
-    background: rgba(205, 243, 47, 0.05);
+    padding: 7px 13px;
+    border-radius: 3px;
+    background: transparent;
     border: 1px solid var(--color-border);
-    font-size: 0.85rem;
+    font-family: var(--font-secondary);
+    font-size: 0.82rem;
     color: var(--color-text-muted);
     transition: var(--transition-fast);
 }
 
 .skill-tags span:hover {
-    color: var(--color-primary);
-    border-color: var(--color-primary);
-    background: rgba(205, 243, 47, 0.1);
+    color: var(--chapter);
+    border-color: var(--chapter);
 }
 

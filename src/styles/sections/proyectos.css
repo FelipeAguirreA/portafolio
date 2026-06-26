@@ -124,14 +124,19 @@
 }
 
 .project-category {
-    display: inline-block;
-    padding: 5px 12px;
-    background: rgba(205, 243, 47, 0.1);
-    border-radius: 20px;
-    color: var(--color-primary-light);
-    font-size: 0.8rem;
-    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-primary);
+    font-family: var(--font-secondary);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     margin-bottom: 12px;
+    background: none;
+    padding: 0;
+    border-radius: 0;
 }
 
 .project-info h3 {
@@ -154,22 +159,21 @@
 }
 
 .project-tech span {
-    padding: 5px 12px;
+    padding: 5px 11px;
     background: var(--color-bg);
     border: 1px solid var(--color-border);
-    border-radius: 20px;
-    font-size: 0.8rem;
+    border-radius: 3px;
+    font-family: var(--font-secondary);
+    font-size: 0.78rem;
     color: var(--color-text-muted);
 }
 
 /* ===== Proyecto destacado ===== */
 .project-featured {
-    background:
-        radial-gradient(circle at 100% 0%, rgba(205, 243, 47, 0.08), transparent 55%),
-        var(--color-bg-card);
+    background: var(--color-bg-card);
     border: 1px solid var(--color-border);
-    border-radius: var(--border-radius-lg);
-    padding: 40px;
+    border-radius: 3px;
+    padding: 44px;
     margin-bottom: 30px;
     position: relative;
     z-index: 2;
@@ -178,7 +182,6 @@
 
 .project-featured:hover {
     border-color: var(--color-primary);
-    box-shadow: 0 20px 50px rgba(205, 243, 47, 0.1);
 }
 
 .project-featured__tag {
@@ -209,7 +212,9 @@
 
 .project-featured__title {
     font-family: var(--font-primary);
-    font-size: 2.2rem;
+    font-weight: 300;
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    letter-spacing: -0.01em;
     margin-bottom: 14px;
 }
 
@@ -235,8 +240,8 @@
 
 .featured-stat__num {
     font-family: var(--font-primary);
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 2.4rem;
+    font-weight: 300;
     color: var(--color-primary);
     line-height: 1;
 }
@@ -269,7 +274,7 @@
     flex-wrap: wrap;
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
-    border-radius: var(--border-radius-lg);
+    border-radius: 3px;
     padding: 28px 32px;
     margin-top: 30px;
     position: relative;
@@ -290,7 +295,7 @@
     color: var(--color-secondary);
     padding: 6px 12px;
     border: 1px solid var(--color-secondary);
-    border-radius: 20px;
+    border-radius: 3px;
     white-space: nowrap;
 }
 
