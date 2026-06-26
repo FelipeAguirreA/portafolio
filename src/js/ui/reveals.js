@@ -175,7 +175,10 @@ gsap.fromTo('.cert',
         scrollTrigger: {
             trigger: '.carousel',
             start: 'top 75%',
-            toggleActions: 'play none none reverse'
+            // play UNA sola vez: no re-ejecutar el flip 3D al volver a cruzar
+            // la seccion (eso causaba el lag de scroll en certificados)
+            toggleActions: 'play none none none',
+            once: true
         },
         y: 0,
         rotationY: 0,
