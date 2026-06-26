@@ -6,7 +6,7 @@
     position: relative;
     background: #0b0d0c;
     border: 1px solid rgba(67, 214, 192, .18);
-    border-radius: 6px;
+    border-radius: 16px;
     background-image:
         linear-gradient(rgba(67, 214, 192, .045) 1px, transparent 1px),
         linear-gradient(90deg, rgba(67, 214, 192, .045) 1px, transparent 1px);
@@ -24,8 +24,8 @@
     border-color: var(--color-primary); border-style: solid; border-width: 0; z-index: 4;
     transition: transform .4s ease;
 }
-.project-card::before { top: 8px; left: 8px; border-top-width: 2px; border-left-width: 2px; transform-origin: top left; transform: scale(.25); }
-.project-card::after { bottom: 8px; right: 8px; border-bottom-width: 2px; border-right-width: 2px; transform-origin: bottom right; transform: scale(.25); }
+.project-card::before { top: 14px; left: 14px; border-top-width: 2px; border-left-width: 2px; transform-origin: top left; transform: scale(.25); }
+.project-card::after { bottom: 14px; right: 14px; border-bottom-width: 2px; border-right-width: 2px; transform-origin: bottom right; transform: scale(.25); }
 .project-card:hover::before,
 .project-card:hover::after { transform: scale(1); }
 /* Líneas de barrido (chartreuse) + scan (teal) */
