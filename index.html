@@ -1,16 +1,46 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CL">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Felipe Aguirre | Desarrollador de Software</title>
+
+    <!-- SEO -->
+    <title>Felipe Aguirre | Desarrollador de Software Full Stack</title>
+    <meta name="description" content="Desarrollador de software full stack. Construyo aplicaciones móviles, sistemas backend y proyectos con inteligencia artificial. De los números al código.">
+    <meta name="author" content="Felipe Aguirre">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="canonical" href="https://felipeaguirredev.com/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Open Graph (LinkedIn, WhatsApp, Facebook) -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_CL">
+    <meta property="og:site_name" content="Felipe Aguirre">
+    <meta property="og:title" content="Felipe Aguirre | Desarrollador de Software Full Stack">
+    <meta property="og:description" content="Construyo aplicaciones móviles, sistemas backend y proyectos con inteligencia artificial. De los números al código.">
+    <meta property="og:url" content="https://felipeaguirredev.com/">
+    <meta property="og:image" content="https://felipeaguirredev.com/assets/images/fotoperfil.png">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Felipe Aguirre | Desarrollador de Software Full Stack">
+    <meta name="twitter:description" content="Construyo aplicaciones móviles, sistemas backend y proyectos con inteligencia artificial. De los números al código.">
+    <meta name="twitter:image" content="https://felipeaguirredev.com/assets/images/fotoperfil.png">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Skip link (accesibilidad: salto directo al contenido por teclado) -->
+    <a class="skip-link" href="#inicio">Saltar al contenido</a>
+
     <!-- Scroll Progress Bar -->
     <div class="scroll-progress"></div>
     
@@ -20,10 +50,6 @@
     <div id="particles"></div>
     <!-- Cursor fluido WebGL -->
     <canvas id="fluid"></canvas>
-
-    <!-- Smooth Scroll Wrapper -->
-    <div id="smooth-wrapper">
-    <div id="smooth-content">
 
     <!-- Navegación -->
     <nav class="navbar">
@@ -60,11 +86,11 @@
                 <div class="hero-role">
                     <span class="role-text">Desarrollador de Software</span>
                     <span class="role-divider">|</span>
-                    <span class="role-text">Mobile & Backend</span>
+                    <span class="role-text">Full Stack &middot; Mobile &middot; IA</span>
                 </div>
                 <p class="hero-description">
-                    Perfil en formación en desarrollo de software. 
-                    Experiencia previa en sistemas y procesos, actualmente desarrollando apps móviles, frontend, backend y APIs.
+                    Reinventé mi carrera de los números al código. Hoy convierto ideas
+                    en productos que la gente usa, de la primera línea hasta producción.
                 </p>
                 <div class="hero-buttons">
                     <a href="#proyectos" class="btn btn-primary">
@@ -78,11 +104,9 @@
             </div>
             <div class="hero-visual" data-speed="1.2">
                 <div class="visual-container">
-                    <div class="visual-ring"></div>
-                    <div class="visual-ring"></div>
-                    <div class="visual-ring"></div>
+                    <canvas id="hero-neural" class="hero-neural" aria-hidden="true"></canvas>
                     <div class="profile-image">
-                        <img src="assets/images/perfilgit.png" alt="Felipe Aguirre">
+                        <img src="/assets/images/perfilgit.png" alt="Felipe Aguirre" fetchpriority="high" decoding="async" width="400" height="400">
                     </div>
                 </div>
             </div>
@@ -97,23 +121,25 @@
     <section id="sobre-mi" class="about">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Conóceme</span>
+                <span class="section-tag">Quién soy</span>
                 <h2 class="section-title">Sobre Mí</h2>
             </div>
             <div class="about-content">
                 <div class="about-text">
                     <p class="about-intro">
-                        Soy un desarrollador de software en formación, con background en 
-                        contabilidad y procesos, en transición al área de tecnología.
+                        No estudié programación desde el principio. Vengo de la contabilidad
+                        y los procesos, y en un momento decidí cambiar el rumbo por completo:
+                        pasar de administrar números a construir software.
                     </p>
                     <p>
-                        Actualmente me especializo en desarrollo de aplicaciones móviles con 
-                        React Native y Expo, así como en backend con Spring Boot y Java. 
-                        Me apasiona crear soluciones que conecten frontend con APIs robustas.
+                        Hoy desarrollo aplicaciones móviles, sistemas backend e integraciones
+                        con inteligencia artificial. Me gusta tomar un producto de principio a
+                        fin: desde lo que ve y toca el usuario hasta la lógica que lo hace
+                        funcionar por detrás.
                     </p>
                     <p>
-                        Estoy disponible para práctica profesional en desarrollo de software. 
-                        ¡Hablemos sobre cómo puedo aportar a tu equipo!
+                        Cada proyecto me deja mejor que el anterior: más prolijo, más probado,
+                        con más impacto. Si algo de lo que viste te hizo sentido, conversemos.
                     </p>
                     <div class="about-stats">
                         <div class="stat-item">
@@ -133,7 +159,7 @@
                 <div class="about-image">
                     <div class="image-frame">
                         <div class="frame-decoration"></div>
-                        <img src="assets/images/fotoperfil.png" alt="Felipe Aguirre">
+                        <img src="/assets/images/fotoperfil.png" alt="Felipe Aguirre" loading="lazy" decoding="async">
                     </div>
                 </div>
             </div>
@@ -144,80 +170,50 @@
     <section id="habilidades" class="skills">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Mis Herramientas</span>
+                <span class="section-tag">Lo que manejo</span>
                 <h2 class="section-title">Habilidades</h2>
             </div>
             <div class="skills-grid">
-                <div class="skill-card" data-skill="html">
-                    <div class="skill-icon">
-                        <i class="fab fa-html5"></i>
-                    </div>
-                    <h3>HTML5</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="95"></div>
+                <div class="skill-group">
+                    <h3 class="skill-group__title">Frontend</h3>
+                    <div class="skill-tags">
+                        <span>React</span><span>Next.js</span><span>TypeScript</span><span>Tailwind CSS</span><span>JavaScript</span><span>HTML5</span><span>CSS3</span>
                     </div>
                 </div>
-                <div class="skill-card" data-skill="css">
-                    <div class="skill-icon">
-                        <i class="fab fa-css3-alt"></i>
-                    </div>
-                    <h3>CSS3</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="90"></div>
+                <div class="skill-group">
+                    <h3 class="skill-group__title">Mobile</h3>
+                    <div class="skill-tags">
+                        <span>React Native</span><span>Expo</span><span>TypeScript</span>
                     </div>
                 </div>
-                <div class="skill-card" data-skill="js">
-                    <div class="skill-icon">
-                        <i class="fab fa-js"></i>
-                    </div>
-                    <h3>JavaScript</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="85"></div>
+                <div class="skill-group">
+                    <h3 class="skill-group__title">Backend</h3>
+                    <div class="skill-tags">
+                        <span>Node.js</span><span>Express</span><span>Java</span><span>Spring Boot</span><span>Python</span><span>Prisma</span><span>REST APIs</span>
                     </div>
                 </div>
-                <div class="skill-card" data-skill="react">
-                    <div class="skill-icon">
-                        <i class="fab fa-react"></i>
-                    </div>
-                    <h3>React Native</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="80"></div>
+                <div class="skill-group">
+                    <h3 class="skill-group__title">Datos</h3>
+                    <div class="skill-tags">
+                        <span>PostgreSQL</span><span>Supabase</span><span>MongoDB</span>
                     </div>
                 </div>
-                <div class="skill-card" data-skill="typescript">
-                    <div class="skill-icon">
-                        <i class="fab fa-js"></i>
-                    </div>
-                    <h3>TypeScript</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="75"></div>
+                <div class="skill-group">
+                    <h3 class="skill-group__title">IA aplicada</h3>
+                    <div class="skill-tags">
+                        <span>HuggingFace</span><span>Embeddings NLP</span><span>Matching semántico</span>
                     </div>
                 </div>
-                <div class="skill-card" data-skill="java">
-                    <div class="skill-icon">
-                        <i class="fab fa-java"></i>
-                    </div>
-                    <h3>Java / Spring Boot</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="70"></div>
+                <div class="skill-group">
+                    <h3 class="skill-group__title">Testing</h3>
+                    <div class="skill-tags">
+                        <span>Vitest</span><span>Playwright</span><span>Testing Library</span>
                     </div>
                 </div>
-                <div class="skill-card" data-skill="git">
-                    <div class="skill-icon">
-                        <i class="fab fa-git-alt"></i>
-                    </div>
-                    <h3>Git / GitHub</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="85"></div>
-                    </div>
-                </div>
-                <div class="skill-card" data-skill="expo">
-                    <div class="skill-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Expo</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="80"></div>
+                <div class="skill-group">
+                    <h3 class="skill-group__title">DevOps &amp; flujo</h3>
+                    <div class="skill-tags">
+                        <span>Git</span><span>GitHub Actions</span><span>Docker</span><span>Vercel</span><span>Sentry</span>
                     </div>
                 </div>
             </div>
@@ -229,19 +225,42 @@
         <div class="projects-particles"></div>
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Mi Trabajo</span>
+                <span class="section-tag">Lo que he construido</span>
                 <h2 class="section-title">Proyectos</h2>
             </div>
+            <article class="project-featured">
+                <span class="project-featured__tag"><span class="pulse-dot"></span>Proyecto destacado · en producción</span>
+                <h3 class="project-featured__title">PractiX</h3>
+                <p class="project-featured__desc">Portal de prácticas laborales con <strong>matching inteligente por IA</strong>: embeddings semánticos de NLP cruzan el CV del estudiante con cada oferta, más scoring ponderado tipo ATS configurable por empresa. Trabajo Final de Máster en Desarrollo con IA, desplegado y funcionando.</p>
+                <div class="project-featured__stats">
+                    <div class="featured-stat"><span class="featured-stat__num">1.336</span><span class="featured-stat__label">Tests passing</span></div>
+                    <div class="featured-stat"><span class="featured-stat__num">100%</span><span class="featured-stat__label">Coverage funcional</span></div>
+                    <div class="featured-stat"><span class="featured-stat__num">v1.16</span><span class="featured-stat__label">En producción</span></div>
+                </div>
+                <p class="project-featured__tech">Next.js 16 · React 19 · TypeScript · Prisma · Supabase · HuggingFace · Docker</p>
+                <div class="project-featured__links">
+                    <a href="https://practix.cl" target="_blank" rel="noopener" class="btn btn-primary"><span>practix.cl</span><i class="fas fa-up-right-from-square"></i></a>
+                    <a href="https://github.com/FelipeAguirreA/web-master-proyecto" target="_blank" rel="noopener" class="btn btn-secondary"><span>Código</span></a>
+                </div>
+            </article>
             <div class="projects-grid">
                 <article class="project-card" data-project-url="https://github.com/FelipeAguirreA/TODO-react-native-expo-API">
+                    <span class="card-sweep"></span><span class="card-scan"></span>
                     <div class="project-image">
                         <div class="project-overlay">
                             <a href="https://github.com/FelipeAguirreA/TODO-react-native-expo-API" target="_blank" class="project-link">
                                 <i class="fab fa-github"></i>
                             </a>
                         </div>
-                        <div class="project-placeholder">
-                            <i class="fas fa-mobile-alt"></i>
+                        <div class="mock">
+                            <div class="phone">
+                                <div class="phone__bar"><b>Mis Tareas</b><span class="phone__count">2/4</span></div>
+                                <div class="task done"><span class="cbox on">✓</span><span>Comprar dominio</span></div>
+                                <div class="task done"><span class="cbox on">✓</span><span>Llamar cliente</span></div>
+                                <div class="task"><span class="cbox"></span><span>Deploy v2</span></div>
+                                <div class="task"><span class="cbox"></span><span>Tests E2E</span></div>
+                                <span class="mock-fab">+</span>
+                            </div>
                         </div>
                     </div>
                     <div class="project-info">
@@ -257,14 +276,25 @@
                     </div>
                 </article>
                 <article class="project-card" data-project-url="https://github.com/FelipeAguirreA/gestion-practicas-api">
+                    <span class="card-sweep"></span><span class="card-scan"></span>
                     <div class="project-image">
                         <div class="project-overlay">
                             <a href="https://github.com/FelipeAguirreA/gestion-practicas-api" target="_blank" class="project-link">
                                 <i class="fab fa-github"></i>
                             </a>
                         </div>
-                        <div class="project-placeholder">
-                            <i class="fas fa-server"></i>
+                        <div class="mock">
+                            <div class="term">
+                                <div class="term__bar"><i></i><i></i><i></i><em>practicas-api</em></div>
+                                <div class="term__body">
+                                    <p class="t-cmd"><span class="t-prompt">$</span> GET /api/practicas</p>
+                                    <p>[</p>
+                                    <p>&nbsp;&nbsp;{ <span class="t-key">"id"</span>: <span class="t-num">1</span>, <span class="t-key">"empresa"</span>: <span class="t-str">"PractiX"</span> },</p>
+                                    <p>&nbsp;&nbsp;{ <span class="t-key">"id"</span>: <span class="t-num">2</span>, <span class="t-key">"empresa"</span>: <span class="t-str">"Lokyui"</span> }</p>
+                                    <p>]</p>
+                                    <p class="t-ok">● 200 OK · 24 ms</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="project-info">
@@ -279,14 +309,47 @@
                     </div>
                 </article>
                 <article class="project-card" data-project-url="https://github.com/FelipeAguirreA/sabor-gourmet-springboot-reservas">
+                    <span class="card-sweep"></span><span class="card-scan"></span>
                     <div class="project-image">
                         <div class="project-overlay">
                             <a href="https://github.com/FelipeAguirreA/sabor-gourmet-springboot-reservas" target="_blank" class="project-link">
                                 <i class="fab fa-github"></i>
                             </a>
                         </div>
-                        <div class="project-placeholder">
-                            <i class="fas fa-utensils"></i>
+                        <div class="mock">
+                            <div class="browser">
+                                <div class="browser__bar"><i></i><i></i><i></i><span class="url">sabor-gourmet.cl/reservas</span></div>
+                                <div class="browser__body">
+                                    <div class="rest__head">
+                                        <span class="rest__title">Reservas · Hoy</span>
+                                        <span class="rest__new">+ Nueva</span>
+                                    </div>
+                                    <div class="rest__stats">
+                                        <span><b>12</b> reservas</span>
+                                        <span><b>38</b> cubiertos</span>
+                                    </div>
+                                    <div class="rest__table">
+                                        <div class="rrow">
+                                            <span class="rav">MP</span>
+                                            <span class="rinfo"><b>María Pérez</b><em>Mesa 4 · 4 pers</em></span>
+                                            <span class="rtime">20:30</span>
+                                            <span class="badge ok">Confirmada</span>
+                                        </div>
+                                        <div class="rrow">
+                                            <span class="rav">JS</span>
+                                            <span class="rinfo"><b>Javier Soto</b><em>Mesa 7 · 2 pers</em></span>
+                                            <span class="rtime">21:00</span>
+                                            <span class="badge wait">Pendiente</span>
+                                        </div>
+                                        <div class="rrow">
+                                            <span class="rav">AD</span>
+                                            <span class="rinfo"><b>Ana Díaz</b><em>Mesa 2 · 6 pers</em></span>
+                                            <span class="rtime">21:15</span>
+                                            <span class="badge ok">Confirmada</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="project-info">
@@ -301,14 +364,26 @@
                     </div>
                 </article>
                 <article class="project-card" data-project-url="https://github.com/FelipeAguirreA/login-crud">
+                    <span class="card-sweep"></span><span class="card-scan"></span>
                     <div class="project-image">
                         <div class="project-overlay">
                             <a href="https://github.com/FelipeAguirreA/login-crud" target="_blank" class="project-link">
                                 <i class="fab fa-github"></i>
                             </a>
                         </div>
-                        <div class="project-placeholder">
-                            <i class="fas fa-user-lock"></i>
+                        <div class="mock">
+                            <div class="phone phone--login2">
+                                <div class="sbar"><span>9:41</span><span class="sicons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-full"></i></span></div>
+                                <div class="login2-body">
+                                    <span class="l2-logo">FA</span>
+                                    <span class="l2-h">Hola de nuevo</span>
+                                    <span class="l2-sub">Inicia sesión para continuar</span>
+                                    <div class="l2-field focus"><i class="fas fa-envelope"></i><span>tu@email.com</span></div>
+                                    <div class="l2-field"><i class="fas fa-lock"></i><span>••••••••</span></div>
+                                    <span class="l2-btn">Iniciar sesión <i class="fas fa-arrow-right"></i></span>
+                                    <span class="l2-link">¿Olvidaste tu contraseña?</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="project-info">
@@ -323,6 +398,17 @@
                     </div>
                 </article>
             </div>
+            <a class="project-collab" href="https://github.com/Lokyui/cuartoambulanteapp" target="_blank" rel="noopener">
+                <span class="project-collab__tag">Colaboración</span>
+                <div class="project-collab__main">
+                    <h3>Cuarto Ambulante App</h3>
+                    <p>Principal contribuidor en app de retail real: automatización de conteos diarios y mensuales, métricas y análisis de ventas para la tienda Cuarto Ambulante.</p>
+                </div>
+                <span class="project-collab__tech">Python · Equipo de 3 · repo de Lokyui</span>
+            </a>
+            <p class="projects-more">
+                <a href="https://github.com/FelipeAguirreA" target="_blank" rel="noopener">Ver todo en GitHub <i class="fas fa-arrow-right"></i></a>
+            </p>
         </div>
     </section>
 
@@ -330,45 +416,37 @@
     <section id="certificados" class="certificates">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Mis Logros</span>
+                <span class="section-tag">Formación</span>
                 <h2 class="section-title">Certificados</h2>
             </div>
-            <div class="certificates-slider">
-                <div class="certificate-card" data-cert-image="assets/images/certificado.png" data-cert-title="Desarrollo Web Full Stack" data-cert-desc="Certificación profesional en desarrollo de habilidades personales para el liderazgo.">
-                    <div class="certificate-image">
-                        <img src="assets/images/certificado.png" alt="Certificado 1">
-                    </div>
-                    <div class="certificate-info">
-                        <h3>Desarrollo de habilidades personales para el liderazgo</h3>
-                        <p>Certificación profesional en desarrollo de habilidades personales para el liderazgo.</p>
-                    </div>
+            <div class="carousel">
+                <div class="carousel__track" id="cert-track">
+                    <button class="cert" data-cert-image="/assets/images/certificado.png" data-cert-title="Desarrollo de habilidades personales para el liderazgo" data-cert-desc="Certificación profesional en desarrollo de habilidades personales para el liderazgo.">
+                        <span class="cert__shine" aria-hidden="true"></span>
+                        <img src="/assets/images/certificado.png" alt="Certificado de liderazgo" loading="lazy">
+                        <span class="cert__name"><span class="cert__idx">C-01</span>Liderazgo</span>
+                    </button>
+                    <button class="cert" data-cert-image="/assets/images/certificado-zenda.png" data-cert-title="Zenda Avanzado" data-cert-desc="Especialización en sistema Zenda.">
+                        <span class="cert__shine" aria-hidden="true"></span>
+                        <img src="/assets/images/certificado-zenda.png" alt="Certificado Zenda Avanzado" loading="lazy">
+                        <span class="cert__name"><span class="cert__idx">C-02</span>Zenda Avanzado</span>
+                    </button>
+                    <button class="cert" data-cert-image="/assets/images/certificado-panel-erp.png" data-cert-title="Panel ERP" data-cert-desc="Gestión de sistemas ERP empresariales.">
+                        <span class="cert__shine" aria-hidden="true"></span>
+                        <img src="/assets/images/certificado-panel-erp.png" alt="Certificado Panel ERP" loading="lazy">
+                        <span class="cert__name"><span class="cert__idx">C-03</span>Panel ERP</span>
+                    </button>
+                    <button class="cert" data-cert-image="/assets/images/certificado-genesis-avanzado.png" data-cert-title="Genesis Avanzado" data-cert-desc="Certificación avanzada en Genesis.">
+                        <span class="cert__shine" aria-hidden="true"></span>
+                        <img src="/assets/images/certificado-genesis-avanzado.png" alt="Certificado Genesis Avanzado" loading="lazy">
+                        <span class="cert__name"><span class="cert__idx">C-04</span>Genesis Avanzado</span>
+                    </button>
                 </div>
-                <div class="certificate-card" data-cert-image="assets/images/certificado-zenda.png" data-cert-title="Zenda Avanzado" data-cert-desc="Especialización en sistema Zenda">
-                    <div class="certificate-image">
-                        <img src="assets/images/certificado-zenda.png" alt="Certificado Zenda">
-                    </div>
-                    <div class="certificate-info">
-                        <h3>Zenda Avanzado</h3>
-                        <p>Especialización en sistema Zenda</p>
-                    </div>
-                </div>
-                <div class="certificate-card" data-cert-image="assets/images/certificado-panel-erp.png" data-cert-title="Panel ERP" data-cert-desc="Gestión de sistemas ERP empresariales">
-                    <div class="certificate-image">
-                        <img src="assets/images/certificado-panel-erp.png" alt="Certificado Panel ERP">
-                    </div>
-                    <div class="certificate-info">
-                        <h3>Panel ERP</h3>
-                        <p>Gestión de sistemas ERP empresariales</p>
-                    </div>
-                </div>
-                <div class="certificate-card" data-cert-image="assets/images/certificado-genesis-avanzado.png" data-cert-title="Genesis Avanzado" data-cert-desc="Certificación avanzada en Genesis">
-                    <div class="certificate-image">
-                        <img src="assets/images/certificado-genesis-avanzado.png" alt="Certificado Genesis">
-                    </div>
-                    <div class="certificate-info">
-                        <h3>Genesis Avanzado</h3>
-                        <p>Certificación avanzada en Genesis</p>
-                    </div>
+                <div class="carousel__nav">
+                    <button class="carousel__btn" id="cert-prev" aria-label="Certificado anterior"><i class="fas fa-arrow-left"></i></button>
+                    <span class="carousel__count" id="cert-count">01 / 04</span>
+                    <button class="carousel__btn" id="cert-next" aria-label="Certificado siguiente"><i class="fas fa-arrow-right"></i></button>
+                    <span class="carousel__hint">arrastra o desliza</span>
                 </div>
             </div>
         </div>
@@ -383,8 +461,8 @@
             </div>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>¿Tienes un proyecto en mente?</h3>
-                    <p>Estoy disponible para proyectos freelance y colaboraciones. ¡Hablemos sobre cómo puedo ayudarte!</p>
+                    <h3>¿Hacemos que pase?</h3>
+                    <p>Tú tienes la idea, el proyecto o la oportunidad. Yo sé cómo construirla. Escríbeme.</p>
                     <div class="contact-details">
                         <div class="contact-item">
                             <div class="contact-icon">
@@ -397,7 +475,7 @@
                         </div>
                         <div class="contact-item">
                             <div class="contact-icon">
-                                <i class="fab fa-linkedin"></i>
+                                <i class="fab fa-linkedin-in"></i>
                             </div>
                             <div>
                                 <span>LinkedIn</span>
@@ -428,22 +506,22 @@
                 </div>
                 <form class="contact-form" id="contact-form">
                     <div class="form-group">
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="name" required autocomplete="name">
                         <label for="name">Nombre</label>
                         <span class="focus-border"></span>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" required autocomplete="email">
                         <label for="email">Email</label>
                         <span class="focus-border"></span>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="subject" name="subject" required>
+                        <input type="text" id="subject" name="subject" required autocomplete="off">
                         <label for="subject">Asunto</label>
                         <span class="focus-border"></span>
                     </div>
                     <div class="form-group">
-                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <textarea id="message" name="message" rows="5" required autocomplete="off"></textarea>
                         <label for="message">Mensaje</label>
                         <span class="focus-border"></span>
                     </div>
@@ -465,30 +543,30 @@
                     <span class="logo-dot"></span>
                 </div>
                 <p>Diseñado y desarrollado con <i class="fas fa-heart"></i> por Felipe Aguirre</p>
-                <p class="copyright">&copy; 2025 Todos los derechos reservados</p>
+                <p class="copyright">&copy; 2026 Felipe Aguirre. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Modal para Certificados -->
-    <div class="certificate-modal" id="certificateModal">
-        <div class="modal-content">
-            <button class="modal-close" aria-label="Cerrar modal">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-image">
-                <img id="modalImage" src="" alt="Certificado">
+    <!-- Lightbox de certificados (galería v3) -->
+    <dialog class="lightbox lightbox--cert" id="cert-dialog">
+        <div class="lightbox__frame">
+            <button class="lightbox__close" id="cert-close" aria-label="Cerrar">✕</button>
+            <div class="lightbox__media">
+                <img id="cert-img" src="" alt="">
             </div>
-            <div class="modal-info">
-                <h2 id="modalTitle"></h2>
-                <p id="modalDescription"></p>
+            <div class="lightbox__panel">
+                <p class="lightbox__label">Certificado <span id="cert-counter">01 / 04</span></p>
+                <h3 id="cert-title"></h3>
+                <p class="lightbox__desc" id="cert-desc"></p>
+                <div class="lightbox__nav">
+                    <button class="carousel__btn" id="cert-d-prev" aria-label="Anterior"><i class="fas fa-arrow-left"></i></button>
+                    <button class="carousel__btn" id="cert-d-next" aria-label="Siguiente"><i class="fas fa-arrow-right"></i></button>
+                    <span class="lightbox__hint">← → navegar · esc cerrar</span>
+                </div>
             </div>
         </div>
-        <div class="modal-overlay"></div>
-    </div>
-
-    </div><!-- #smooth-content -->
-    </div><!-- #smooth-wrapper -->
+    </dialog>
 
     <!-- Success Modal -->
     <div id="success-modal" class="modal">
@@ -507,10 +585,11 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-    <script src="js/script.js"></script>
+    <!-- Scripts (defer: descarga en paralelo, ejecuta en orden tras el parse) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+    <script defer src="/js/script.js"></script>
 </body>
 </html>

@@ -8,10 +8,12 @@ Portafolio profesional moderno con animaciones GSAP, cursor fluido WebGL y enví
 portafolio/
 ├── index.html          # Página principal
 ├── css/
-│   └── style.css       # Estilos
-├── js/
-│   └── script.js       # Animaciones
-├── assets/images/      # Imágenes
+│   └── style.css       # Estilos (bundleados por Vite)
+├── public/
+│   ├── js/script.js    # Animaciones (servido estático, scope global)
+│   └── assets/images/  # Imágenes (rutas absolutas /assets/...)
+├── api/send-email.js   # Vercel Function (formulario + Resend)
+├── vite.config.js      # Config de Vite
 ├── README.md           # Documentación
 └── .git/               # Control de versiones
 ```
@@ -40,15 +42,20 @@ portafolio/
 ## 🚀 Desarrollo Local
 
 ```bash
-# Servidor local simple (opción rápida)
-python -m http.server 8000
-# Accede a http://localhost:8000
+pnpm install        # instala dependencias (Vite + Resend)
 
-# Desarrollo con Vercel (Functions)
-npm install
-vercel dev
-# Accede a http://localhost:3000
+pnpm dev            # servidor de desarrollo Vite con live-reload → http://localhost:5173
+                    # OJO: el formulario NO funciona acá (no levanta la Function)
+
+pnpm build          # build de producción a dist/
+pnpm preview        # sirve el build de dist/
+
+vercel dev          # Vite + Vercel Functions → necesario para probar el formulario
 ```
+
+> El script `dev` debe ser `vite`, NUNCA `vercel dev`: `vercel dev` ejecuta el
+> script `dev` del `package.json`, así que apuntarlo a sí mismo causa recursión
+> infinita.
 
 ### Variables de Entorno
 
@@ -78,7 +85,7 @@ O desde la UI: Deployments → ⋮ → Redeploy (sin caché).
 
 ## 🧩 Notas de Animación
 
-- Se evita ScrollSmoother para compatibilidad; se mantiene smooth scroll nativo.
+- Smooth scroll con Lenis (vía CDN UMD) integrado al ticker de GSAP; se evita ScrollSmoother por compatibilidad y peso.
 - Animaciones con `gsap.set + gsap.fromTo` para garantizar visibilidad inicial (evita elementos invisibles si el trigger no dispara).
 - El modal de éxito se reinicia en cada apertura (`gsap.killTweensOf` + estados iniciales).
 
@@ -93,7 +100,7 @@ O desde la UI: Deployments → ⋮ → Redeploy (sin caché).
 ## 🛠️ Troubleshooting
 
 - 404 de imágenes en producción: respeta mayúsculas/minúsculas (ej. `git.PNG` vs `git.png`).
-- CDN 404 de ScrollSmoother: fue removido (no se usa).
+- ScrollSmoother fue removido (no se usa); el smooth scroll lo maneja Lenis.
 - Si ves `Missing API key` en `/api/send-email`: revisa `RESEND_API_KEY` y redeploy completo.
 - Si iconos/elementos no aparecen al primer scroll: usa `ScrollTrigger.refresh()` o verifica que se usa `fromTo` y `gsap.set`.
 

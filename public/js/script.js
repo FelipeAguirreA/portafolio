@@ -6,9 +6,9 @@
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // ============================================
-// Smooth Scroll con ScrollSmoother (DESACTIVADO temporalmente)
+// Smooth Scroll (Lenis) — ver inicialización más abajo
 // ============================================
-let smoother = null;
+let lenis = null;
 
 // (Cursor personalizado anterior eliminado) Solo se usa canvas fluido.
 
@@ -132,12 +132,24 @@ heroTimeline
         opacity: 0,
         duration: 0.8
     })
+    // La foto entra temprano (segunda), junto con la red neuronal
+    .from('.profile-image', {
+        scale: 0,
+        opacity: 0,
+        duration: 1,
+        ease: 'elastic.out(1, 0.5)'
+    }, '-=0.3')
+    .from('.hero-neural', {
+        opacity: 0,
+        duration: 1.4,
+        ease: 'power2.out'
+    }, '<')
     .from('.title-line', {
         y: 100,
         opacity: 0,
         duration: 1,
         stagger: 0.2
-    }, '-=0.4')
+    }, '-=0.8')
     .from('.hero-role', {
         y: 30,
         opacity: 0,
@@ -151,26 +163,13 @@ heroTimeline
 
     // Asegurar que los botones sean visibles por defecto
     gsap.set('.hero-buttons .btn', { opacity: 1, y: 0 });
-    
+
     heroTimeline.from('.hero-buttons .btn', {
         y: 30,
         opacity: 0,
         duration: 0.8,
         stagger: 0.2
     }, '-=0.5')
-    .from('.visual-ring', {
-        scale: 0,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: 'elastic.out(1, 0.5)'
-    }, '-=1')
-    .from('.profile-image', {
-        scale: 0,
-        opacity: 0,
-        duration: 1,
-        ease: 'elastic.out(1, 0.5)'
-    }, '-=0.8')
     .from('.scroll-indicator', {
         y: 20,
         opacity: 0,
@@ -252,10 +251,10 @@ gsap.from('.skills .section-header', {
 });
 
 // Asegurar que las tarjetas sean visibles por defecto
-gsap.set('.skill-card', { opacity: 1, y: 0, scale: 1 });
+gsap.set('.skill-group', { opacity: 1, y: 0, scale: 1 });
 
 // Animación moderna de tarjetas con scale y stagger
-gsap.fromTo('.skill-card', 
+gsap.fromTo('.skill-group',
     {
         y: 60,
         scale: 0.9,
@@ -275,36 +274,6 @@ gsap.fromTo('.skill-card',
         ease: 'back.out(1.2)'
     }
 );
-
-// Skill cards sin animación de opacidad adicional
-// gsap.from('.skill-card', {
-//     scrollTrigger: {
-//         trigger: '.skills-grid',
-//         start: 'top 70%'
-//     },
-//     y: 50,
-//     opacity: 0,
-//     duration: 0.8,
-//     stagger: 0.1
-// });
-
-// Animación de barras de progreso
-document.querySelectorAll('.skill-progress').forEach(bar => {
-    const progress = bar.getAttribute('data-progress');
-    
-    ScrollTrigger.create({
-        trigger: bar,
-        start: 'top 80%',
-        onEnter: () => {
-            gsap.to(bar, {
-                width: progress + '%',
-                duration: 1.5,
-                ease: 'power2.out'
-            });
-        },
-        once: true
-    });
-});
 
 // ============================================
 // Projects Section Animations
@@ -349,34 +318,7 @@ gsap.fromTo('.project-card',
     }
 );
 
-// Project cards sin animación de opacidad - todas visibles
-// gsap.from('.project-card', {
-//     scrollTrigger: {
-//         trigger: '.projects-grid',
-//         start: 'top 70%'
-//     },
-//     y: 80,
-//     opacity: 0,
-//     duration: 1,
-//     stagger: 0.2
-// });
-
-// Hover animations para project cards
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        gsap.to(card.querySelector('.project-placeholder'), {
-            scale: 1.1,
-            duration: 0.3
-        });
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        gsap.to(card.querySelector('.project-placeholder'), {
-            scale: 1,
-            duration: 0.3
-        });
-    });
-});
+// (Hover de project cards: lo maneja el CSS W3 + el decode del título)
 
 // ============================================
 // Certificates Section Animations
@@ -394,10 +336,10 @@ gsap.from('.certificates .section-header', {
 });
 
 // Asegurar que los certificados sean visibles por defecto
-gsap.set('.certificate-card', { opacity: 1, y: 0, scale: 1, rotationY: 0 });
+gsap.set('.cert', { opacity: 1, y: 0, scale: 1, rotationY: 0 });
 
 // Animación de certificados con efecto flip
-gsap.fromTo('.certificate-card',
+gsap.fromTo('.cert',
     {
         y: 60,
         rotationY: 25,
@@ -406,7 +348,7 @@ gsap.fromTo('.certificate-card',
     },
     {
         scrollTrigger: {
-            trigger: '.certificates-slider',
+            trigger: '.carousel',
             start: 'top 75%',
             toggleActions: 'play none none reverse'
         },
@@ -524,7 +466,7 @@ gsap.from('.footer-content', {
 });
 
 // ============================================
-// Smooth Scroll para links internos con ScrollSmoother
+// Smooth Scroll para links internos con Lenis
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -535,11 +477,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         const target = document.querySelector(targetId);
         
-        if (target && smoother) {
-            // Usar ScrollSmoother para scroll suave
-            smoother.scrollTo(target, true, 'top 80px');
+        if (target && lenis) {
+            // Scroll suave vía Lenis
+            lenis.scrollTo(target, { offset: -80 });
         } else if (target) {
-            // Fallback si smoother no está disponible
+            // Fallback (reduced-motion o Lenis no disponible)
             gsap.to(window, {
                 duration: 0.8,
                 scrollTo: { y: target, offsetY: 80 },
@@ -555,36 +497,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ============================================
 // Form Animation
 // ============================================
-const form = document.querySelector('.contact-form');
-
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const button = form.querySelector('button');
-    const originalText = button.innerHTML;
-    
-    // Animación de envío
-    gsap.to(button, {
-        scale: 0.95,
-        duration: 0.1,
-        onComplete: () => {
-            button.innerHTML = '<i class="fas fa-check"></i> ¡Enviado!';
-            button.style.background = 'linear-gradient(135deg, #22d3ee 0%, #10b981 100%)';
-            
-            gsap.to(button, {
-                scale: 1,
-                duration: 0.3
-            });
-            
-            // Reset después de 3 segundos
-            setTimeout(() => {
-                button.innerHTML = originalText;
-                button.style.background = '';
-                form.reset();
-            }, 3000);
-        }
-    });
-});
+// El envío real del formulario vive en UN solo handler más abajo
+// (#contact-form → fetch('/api/send-email') + modal de éxito).
 
 // ============================================
 // Parallax Effect en Hero
@@ -626,154 +540,217 @@ document.querySelectorAll('.btn').forEach(btn => {
 });
 
 // ============================================
-// Skill Card Tilt Effect (Desactivado)
+// Carrusel de certificados (diseño v3)
 // ============================================
-// Efecto tilt desactivado para mantener cards uniformes
-// document.querySelectorAll('.skill-card').forEach(card => {
-//     card.addEventListener('mousemove', (e) => {
-//         const rect = card.getBoundingClientRect();
-//         const x = e.clientX - rect.left;
-//         const y = e.clientY - rect.top;
-//         
-//         const centerX = rect.width / 2;
-//         const centerY = rect.height / 2;
-//         
-//         const rotateX = (y - centerY) / 10;
-//         const rotateY = (centerX - x) / 10;
-//         
-//         gsap.to(card, {
-//             rotateX: rotateX,
-//             rotateY: rotateY,
-//             duration: 0.3,
-//             transformPerspective: 1000
-//         });
-//     });
-//     
-//     card.addEventListener('mouseleave', () => {
-//         gsap.to(card, {
-//             rotateX: 0,
-//             rotateY: 0,
-//             duration: 0.5
-//         });
-//     });
-// });
+const certTrack = document.getElementById('cert-track');
+if (certTrack) {
+    const certCards = [...certTrack.children].filter(c => c.classList.contains('cert'));
+    const certCounter = document.getElementById('cert-count');
+    const certTotal = String(certCards.length).padStart(2, '0');
+    const stepSize = () =>
+        certCards[0].getBoundingClientRect().width + parseFloat(getComputedStyle(certTrack).gap || 0);
 
-// ============================================
-// Text Reveal Animation
-// ============================================
-function splitText(element) {
-    const text = element.innerText;
-    element.innerHTML = '';
-    
-    text.split('').forEach(char => {
-        const span = document.createElement('span');
-        span.innerText = char === ' ' ? '\u00A0' : char;
-        span.style.display = 'inline-block';
-        element.appendChild(span);
+    document.getElementById('cert-prev')?.addEventListener('click', () =>
+        certTrack.scrollBy({ left: -stepSize(), behavior: 'smooth' })
+    );
+    document.getElementById('cert-next')?.addEventListener('click', () =>
+        certTrack.scrollBy({ left: stepSize(), behavior: 'smooth' })
+    );
+
+    if (certCounter) {
+        const updateCount = () => {
+            const i = Math.min(certCards.length - 1, Math.round(certTrack.scrollLeft / stepSize()));
+            certCounter.textContent = `${String(i + 1).padStart(2, '0')} / ${certTotal}`;
+        };
+        certTrack.addEventListener('scroll', updateCount, { passive: true });
+        updateCount();
+    }
+
+    // drag con mouse + lanzamiento con inercia (touch usa scroll nativo)
+    let down = false, startX = 0, startL = 0, moved = 0, lastX = 0, lastT = 0, vel = 0;
+    certTrack.addEventListener('dragstart', (e) => e.preventDefault());
+    certTrack.addEventListener('pointerdown', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        down = true; moved = 0; vel = 0;
+        startX = lastX = e.clientX;
+        startL = certTrack.scrollLeft;
+        lastT = performance.now();
+        gsap.killTweensOf(certTrack);
+        certTrack.classList.add('is-dragging');
     });
-    
-    return element.querySelectorAll('span');
+    window.addEventListener('pointermove', (e) => {
+        if (!down) return;
+        const dx = e.clientX - startX;
+        moved = Math.max(moved, Math.abs(dx));
+        certTrack.scrollLeft = startL - dx;
+        const now = performance.now();
+        const dt = now - lastT;
+        if (dt > 0) { vel = (e.clientX - lastX) / dt; lastX = e.clientX; lastT = now; }
+    });
+    const endDrag = () => {
+        if (!down) return;
+        down = false;
+        const step = stepSize();
+        const max = certTrack.scrollWidth - certTrack.clientWidth;
+        let target = certTrack.scrollLeft - vel * 300;
+        target = Math.max(0, Math.min(max, Math.round(target / step) * step));
+        gsap.to(certTrack, {
+            scrollLeft: target, duration: 0.65, ease: 'power3.out',
+            onComplete: () => certTrack.classList.remove('is-dragging'),
+        });
+    };
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
+    // si hubo drag, no abrir el modal
+    certTrack.addEventListener('click', (e) => {
+        if (moved > 6) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+
+    // tilt 3D que sigue al mouse
+    if (matchMedia('(pointer: fine)').matches) {
+        certCards.forEach((card) => {
+            const base = parseFloat(getComputedStyle(card).getPropertyValue('--tilt')) || 0;
+            card.addEventListener('pointermove', (e) => {
+                if (certTrack.classList.contains('is-dragging')) return;
+                const r = card.getBoundingClientRect();
+                const rx = ((e.clientY - r.top) / r.height - 0.5) * -7;
+                const ry = ((e.clientX - r.left) / r.width - 0.5) * 7;
+                card.style.transform = `perspective(1100px) rotate(${base * 0.25}deg) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px) scale(1.015)`;
+            });
+            card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+        });
+    }
 }
 
 // ============================================
-// Certificate Modal
+// Certificate Lightbox (galería con navegación — diseño v3)
 // ============================================
-const certificateCards = document.querySelectorAll('.certificate-card');
-const certificateModal = document.getElementById('certificateModal');
-const modalImage = document.getElementById('modalImage');
-const modalTitle = document.getElementById('modalTitle');
-const modalDescription = document.getElementById('modalDescription');
-const modalClose = document.querySelector('.modal-close');
-const modalOverlay = document.querySelector('.modal-overlay');
-let isModalOpen = false;
+const certDialog = document.getElementById('cert-dialog');
+if (certDialog) {
+    const dFrame = certDialog.querySelector('.lightbox__frame');
+    const dImg = document.getElementById('cert-img');
+    const dTitle = document.getElementById('cert-title');
+    const dDesc = document.getElementById('cert-desc');
+    const dCounter = document.getElementById('cert-counter');
+    const certButtons = [...document.querySelectorAll('.cert')];
+    const certData = certButtons.map(b => ({
+        img: b.dataset.certImage,
+        title: b.dataset.certTitle,
+        desc: b.dataset.certDesc,
+    }));
+    let certIndex = 0;
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-certificateCards.forEach(card => {
-    card.addEventListener('click', () => {
-        if (isModalOpen) return;
-        
-        const image = card.getAttribute('data-cert-image');
-        const title = card.getAttribute('data-cert-title');
-        const desc = card.getAttribute('data-cert-desc');
-        
-        modalImage.src = image;
-        modalTitle.textContent = title;
-        modalDescription.textContent = desc;
-        
-        certificateModal.classList.add('active');
-        isModalOpen = true;
-        
-        // Matar animaciones previas
-        gsap.killTweensOf('.modal-content');
-        gsap.killTweensOf('.modal-overlay');
-        
-        // Reset y animación de entrada
-        gsap.set('.modal-content', { scale: 0.8, opacity: 0 });
-        gsap.set('.modal-overlay', { opacity: 0 });
-        
-        gsap.to('.modal-content', {
-            scale: 1,
-            opacity: 1,
-            duration: 0.3,
-            ease: 'back.out'
+    function renderCert(i, dir = 0) {
+        certIndex = (i + certData.length) % certData.length;
+        const c = certData[certIndex];
+        const swap = () => {
+            dImg.src = c.img;
+            dImg.alt = c.title;
+            dTitle.textContent = c.title;
+            dDesc.textContent = c.desc;
+            dCounter.textContent = `${String(certIndex + 1).padStart(2, '0')} / ${String(certData.length).padStart(2, '0')}`;
+        };
+        if (reducedMotion || dir === 0) { swap(); return; }
+        // deslizamiento direccional al navegar
+        gsap.to([dImg, dTitle, dDesc], {
+            x: dir * -26, opacity: 0, duration: 0.18, ease: 'power2.in',
+            onComplete: () => {
+                swap();
+                gsap.fromTo([dImg, dTitle, dDesc],
+                    { x: dir * 26, opacity: 0 },
+                    { x: 0, opacity: 1, duration: 0.3, ease: 'power2.out', stagger: 0.04 }
+                );
+            },
         });
-        
-        gsap.to('.modal-overlay', {
-            opacity: 1,
-            duration: 0.3
-        });
-    });
-});
+    }
 
-// Cerrar modal
-modalClose.addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', closeModal);
-
-function closeModal() {
-    if (!isModalOpen) return;
-    
-    isModalOpen = false;
-    
-    // Matar animaciones previas
-    gsap.killTweensOf('.modal-content');
-    gsap.killTweensOf('.modal-overlay');
-    
-    gsap.to('.modal-content', {
-        scale: 0.8,
-        opacity: 0,
-        duration: 0.3,
-        ease: 'back.in'
-    });
-    
-    gsap.to('.modal-overlay', {
-        opacity: 0,
-        duration: 0.3,
-        onComplete: () => {
-            certificateModal.classList.remove('active');
+    function openCert(i) {
+        renderCert(i);
+        certDialog.showModal();
+        if (!reducedMotion) {
+            gsap.fromTo(dFrame,
+                { y: 36, scale: 0.95, opacity: 0 },
+                { y: 0, scale: 1, opacity: 1, duration: 0.5, ease: 'power3.out' }
+            );
+            gsap.fromTo(dImg,
+                { clipPath: 'inset(0 100% 0 0)' },
+                { clipPath: 'inset(0 0% 0 0)', duration: 0.7, delay: 0.15, ease: 'power3.inOut' }
+            );
+            gsap.fromTo(certDialog.querySelectorAll('.lightbox__panel > *'),
+                { x: 22, opacity: 0 },
+                { x: 0, opacity: 1, duration: 0.5, delay: 0.25, stagger: 0.07, ease: 'power2.out' }
+            );
         }
+    }
+
+    function closeCert() {
+        if (reducedMotion) { certDialog.close(); return; }
+        gsap.to(dFrame, {
+            y: 22, scale: 0.97, opacity: 0, duration: 0.25, ease: 'power2.in',
+            onComplete: () => certDialog.close(),
+        });
+    }
+
+    certButtons.forEach((btn, i) => btn.addEventListener('click', () => openCert(i)));
+    document.getElementById('cert-close').addEventListener('click', closeCert);
+    document.getElementById('cert-d-prev').addEventListener('click', () => renderCert(certIndex - 1, -1));
+    document.getElementById('cert-d-next').addEventListener('click', () => renderCert(certIndex + 1, 1));
+    certDialog.addEventListener('click', (e) => { if (e.target === certDialog) closeCert(); });
+    certDialog.addEventListener('cancel', (e) => { e.preventDefault(); closeCert(); });
+    certDialog.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') renderCert(certIndex - 1, -1);
+        if (e.key === 'ArrowRight') renderCert(certIndex + 1, 1);
     });
 }
 
-// Manejo de clic en tarjetas de proyecto
+// Manejo de clic en tarjetas de proyecto + decode del título al hover (estilo W3)
+const decodeChars = '01<>/{}[]#$%&*+=';
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('click', (e) => {
         // No ejecutar si se hace clic en el enlace directo del overlay
         if (e.target.closest('.project-link')) return;
-        
+
         const projectUrl = card.getAttribute('data-project-url');
         if (projectUrl) {
             window.open(projectUrl, '_blank');
         }
     });
-    
+
     // Agregar efecto visual de cursor
     card.style.cursor = 'pointer';
+
+    // Decode del título al pasar el mouse (se salta si se pidió menos movimiento)
+    const titleEl = card.querySelector('.project-info h3');
+    if (titleEl && !reduceMotion) {
+        const original = titleEl.textContent;
+        card.addEventListener('mouseenter', () => {
+            let frame = 0;
+            clearInterval(titleEl._decodeTimer);
+            titleEl._decodeTimer = setInterval(() => {
+                titleEl.textContent = original.split('').map((ch, i) => {
+                    if (ch === ' ') return ' ';
+                    if (i < frame / 2) return ch;
+                    return decodeChars[Math.floor(Math.random() * decodeChars.length)];
+                }).join('');
+                frame++;
+                if (frame / 2 > original.length) { clearInterval(titleEl._decodeTimer); titleEl.textContent = original; }
+            }, 45);
+        });
+        card.addEventListener('mouseleave', () => { clearInterval(titleEl._decodeTimer); titleEl.textContent = original; });
+    }
 });
 
 // ============================================
 // Cursor fluido WebGL (adaptado, sin jQuery)
 // ============================================
 window.addEventListener('load', () => {
-    initFluid();
+    // No arranca el cursor fluido WebGL si se pidió menos movimiento
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        initFluid();
+    }
 });
 
 function initFluid() {
@@ -1266,7 +1243,7 @@ function initFluid() {
 
     let dye, velocity, divergence, curl, pressure;
     // Textura de dithering opcional (se mantiene la blanca por defecto)
-    const ditheringTexture = createTextureAsync('assets/images/fotoperfil.png');
+    const ditheringTexture = createTextureAsync('/assets/images/fotoperfil.png');
 
     const blurProgram = new Program(blurVertexShader, blurShader);
     const copyProgram = new Program(baseVertexShader, copyShader);
@@ -1630,12 +1607,7 @@ function initFluid() {
     update();
 }
 
-// Cerrar modal con tecla ESC
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isModalOpen) {
-        closeModal();
-    }
-});
+// (el lightbox de certificados es un <dialog> nativo: cierra con ESC vía su evento 'cancel')
 
 // ============================================
 // ============================================
@@ -1644,29 +1616,23 @@ document.addEventListener('keydown', (e) => {
 // Initialize - Iniciar todo cuando cargue la página
 // ============================================
 window.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Portfolio loading...');
-    
-    // Inicializar partículas inmediatamente
-    createParticles();
-    createProjectParticles();
-    
-    console.log('💜 Particles initialized');
+    // Respeta a quien pidió menos movimiento: no inicializa partículas
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        createParticles();
+        createProjectParticles();
+    }
 });
 
-// Inicializar ScrollSmoother y animaciones después de que todo cargue
+// Inicializar smooth-scroll (Lenis) y animaciones después de que todo cargue
 window.addEventListener('load', () => {
-    console.log('✅ Page fully loaded - ScrollSmoother DISABLED for debugging');
-    
-    // DESACTIVADO ScrollSmoother temporalmente para debugging
-    /*
-    smoother = ScrollSmoother.create({
-        wrapper: '#smooth-wrapper',
-        content: '#smooth-content',
-        smooth: 1.5,
-        effects: true,
-        smoothTouch: 0.1,
-    });
-    */
+    // Smooth-scroll con Lenis, integrado al ticker de GSAP + ScrollTrigger.
+    // No se activa si el usuario pidió menos movimiento.
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && typeof Lenis !== 'undefined') {
+        lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+    }
 
     // Barra de progreso del scroll
     gsap.to('.scroll-progress', {
@@ -1683,7 +1649,6 @@ window.addEventListener('load', () => {
     // Refrescar ScrollTrigger
     setTimeout(() => {
         ScrollTrigger.refresh();
-        console.log('✨ ScrollTrigger refreshed - animations should work now!');
     }, 100);
 });
 
@@ -1795,3 +1760,64 @@ function closeSuccessModal() {
         }
     });
 }
+
+// ============================================
+// Red neuronal del hero (canvas) — reemplaza los anillos (estilo V11)
+// ============================================
+window.addEventListener('load', function initHeroNeural() {
+    const canvas = document.getElementById('hero-neural');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const TEAL = '67,214,192', EMBER = '255,157,107';
+    let W, CXn, CYn, nodes;
+
+    function setup() {
+        const size = canvas.clientWidth || 480;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = size * dpr; canvas.height = size * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        W = size; CXn = CYn = size / 2;
+        const photoR = size * 0.31;
+        const bandMin = photoR + size * 0.04;
+        const bandWidth = (size / 2 - bandMin) * 0.92;
+        const N = 34;
+        nodes = [];
+        for (let i = 0; i < N; i++) {
+            nodes.push({
+                base: bandMin + Math.random() * bandWidth,
+                a: Math.random() * 6.2832,
+                speed: (Math.random() * 0.0004 + 0.00012) * (Math.random() < 0.5 ? 1 : -1),
+                phase: Math.random() * 6.2832,
+                hue: Math.random() < 0.3 ? EMBER : TEAL  // V11: teal con ~30% ember
+            });
+        }
+    }
+
+    function place() { nodes.forEach(n => { n.x = CXn + Math.cos(n.a) * n.base; n.y = CYn + Math.sin(n.a) * n.base; }); }
+
+    function draw(t) {
+        const nr = W * 0.19;
+        ctx.clearRect(0, 0, W, W);
+        nodes.forEach(n => { n.a += n.speed * 16; const wob = Math.sin(t * 0.001 + n.phase) * (W * 0.018); n.x = CXn + Math.cos(n.a) * (n.base + wob); n.y = CYn + Math.sin(n.a) * (n.base + wob); });
+        for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
+            const a = nodes[i], b = nodes[j], dd = Math.hypot(a.x - b.x, a.y - b.y);
+            if (dd < nr) { ctx.strokeStyle = `rgba(${TEAL},${(1 - dd / nr) * 0.42})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+        }
+        nodes.forEach(n => { ctx.fillStyle = `rgba(${n.hue},0.9)`; ctx.beginPath(); ctx.arc(n.x, n.y, 2.1, 0, 7); ctx.fill(); });
+    }
+
+    setup();
+    const animate = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (animate) {
+        const loop = (t) => { draw(t); requestAnimationFrame(loop); };
+        requestAnimationFrame(loop);
+    } else {
+        place(); draw(0);  // estático: un solo frame
+    }
+
+    let rt;
+    window.addEventListener('resize', () => {
+        clearTimeout(rt);
+        rt = setTimeout(() => { setup(); if (!animate) { place(); draw(0); } }, 200);
+    });
+});
