@@ -30,6 +30,11 @@ heroTimeline
         duration: 1,
         stagger: 0.2
     }, '-=0.8')
+    .from('.hero-lead', {
+        y: 30,
+        opacity: 0,
+        duration: 0.8
+    }, '-=0.6')
     .from('.hero-role', {
         y: 30,
         opacity: 0,

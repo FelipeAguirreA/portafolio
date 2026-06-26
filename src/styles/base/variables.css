@@ -17,8 +17,8 @@
     --color-border: #27272a;
     --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
     --gradient-accent: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
-    --font-primary: 'Space Grotesk', sans-serif;
-    --font-secondary: 'Inter', sans-serif;
+    --font-primary: 'Fraunces', Georgia, serif;       /* display serif con carácter (editorial) */
+    --font-secondary: 'Archivo', sans-serif;          /* body sans limpia */
     --font-mono: ui-monospace, 'Cascadia Code', 'Courier New', monospace;
     --transition-fast: 0.2s ease;
     --transition-normal: 0.3s ease;
