@@ -79,6 +79,9 @@ function openSuccessModal() {
 
     modal.classList.add('active');
 
+    // Foco al boton de cierre (accesibilidad por teclado)
+    modal.querySelector('#success-close')?.focus();
+
     // Animate scoped elements
     gsap.to(content, {
         scale: 1,
@@ -107,6 +110,20 @@ function closeSuccessModal() {
             modal.classList.remove('active');
             // Reset overlay for next open
             gsap.set(overlay, { opacity: 0 });
+        }
+    });
+}
+
+// Cierre del modal: boton, clic en el overlay y tecla Escape.
+// (Antes era un onclick inline que dependia de una funcion global; al
+//  modularizar dejo de existir en window, asi que se cablea aca.)
+const successModal = document.getElementById('success-modal');
+if (successModal) {
+    successModal.querySelector('#success-close')?.addEventListener('click', closeSuccessModal);
+    successModal.querySelector('[data-close]')?.addEventListener('click', closeSuccessModal);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && successModal.classList.contains('active')) {
+            closeSuccessModal();
         }
     });
 }

@@ -1,17 +1,13 @@
-/* Modal de exito (form) */
-/* ============================================
-   Success Modal
-   ============================================ */
+/* Modal de exito (form) — estilo HUD / FA-SYS */
+
 .modal {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     z-index: 10000;
     align-items: center;
     justify-content: center;
+    padding: 24px;
 }
 
 .modal.active {
@@ -20,58 +16,134 @@
 
 .modal-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(4px);
-    opacity: 0; /* start hidden, animated to 1 when opening */
+    inset: 0;
+    background: rgba(5, 6, 6, 0.78);
+    backdrop-filter: blur(6px);
+    opacity: 0; /* arranca oculto, GSAP lo lleva a 1 al abrir */
+    cursor: pointer;
 }
 
 .modal-content {
     position: relative;
     z-index: 10001;
+    width: 100%;
+    max-width: 460px;
     background: var(--color-bg-card);
+    border: 1px solid color-mix(in srgb, var(--color-secondary) 32%, transparent);
     border-radius: var(--border-radius-lg);
-    border: 1px solid var(--color-border);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    max-width: 500px;
-    width: 90%;
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    overflow: hidden;
 }
 
+/* Grilla neon de fondo (eco de las tarjetas W3), desvanecida hacia los bordes */
+.modal-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(color-mix(in srgb, var(--color-secondary) 9%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--color-secondary) 9%, transparent) 1px, transparent 1px);
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(circle at 50% 28%, #000 0%, transparent 72%);
+    mask-image: radial-gradient(circle at 50% 28%, #000 0%, transparent 72%);
+    pointer-events: none;
+}
+
+/* Brackets de mira en las esquinas */
+.modal-bracket {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--color-primary);
+    z-index: 2;
+    opacity: 0.9;
+}
+.modal-bracket--tl { top: 12px; left: 12px; border-right: 0; border-bottom: 0; }
+.modal-bracket--tr { top: 12px; right: 12px; border-left: 0; border-bottom: 0; }
+.modal-bracket--bl { bottom: 12px; left: 12px; border-right: 0; border-top: 0; }
+.modal-bracket--br { bottom: 12px; right: 12px; border-left: 0; border-top: 0; }
+
 .modal-body {
-    padding: 50px 40px;
+    position: relative;
+    z-index: 2;
+    padding: 44px 38px 38px;
     text-align: center;
 }
 
-.success-icon {
-    font-size: 4rem;
-    color: #10b981;
-    margin-bottom: 25px;
-    animation: bounce 0.6s ease-in-out;
+/* Linea de estado en monospace */
+.modal-status {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    opacity: 0.85;
+    margin-bottom: 24px;
 }
 
-@keyframes bounce {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+/* Checkmark SVG que se dibuja: anillo teal + tilde chartreuse */
+.success-check {
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 22px;
+    filter: drop-shadow(0 0 10px color-mix(in srgb, var(--color-primary) 45%, transparent));
+}
+.success-check svg {
+    width: 100%;
+    height: 100%;
+}
+.success-check__ring {
+    stroke: var(--color-secondary);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 227; /* circunferencia: 2*pi*36 */
+    stroke-dashoffset: 227;
+}
+.success-check__tick {
+    stroke: var(--color-primary);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 60;
+    stroke-dashoffset: 60;
+}
+.modal.active .success-check__ring {
+    animation: modal-draw 0.55s ease forwards 0.1s;
+}
+.modal.active .success-check__tick {
+    animation: modal-draw 0.35s ease forwards 0.5s;
+}
+@keyframes modal-draw {
+    to { stroke-dashoffset: 0; }
 }
 
 .modal-body h2 {
-    font-size: 2rem;
+    font-family: var(--font-primary);
+    font-size: 1.7rem;
     color: var(--color-text);
-    margin-bottom: 15px;
     font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
 }
 
-.modal-body p {
+.modal-text {
     color: var(--color-text-muted);
-    margin-bottom: 30px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.6;
+    margin-bottom: 30px;
 }
 
 .modal-body .btn {
     min-width: 150px;
 }
 
+/* Respeta a quien pidio menos movimiento: el check ya aparece dibujado */
+@media (prefers-reduced-motion: reduce) {
+    .modal.active .success-check__ring,
+    .modal.active .success-check__tick {
+        animation: none;
+        stroke-dashoffset: 0;
+    }
+}

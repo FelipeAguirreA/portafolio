@@ -569,16 +569,28 @@
     </dialog>
 
     <!-- Success Modal -->
-    <div id="success-modal" class="modal">
-        <div class="modal-overlay"></div>
+    <div id="success-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="success-title">
+        <div class="modal-overlay" data-close></div>
         <div class="modal-content">
+            <span class="modal-bracket modal-bracket--tl"></span>
+            <span class="modal-bracket modal-bracket--tr"></span>
+            <span class="modal-bracket modal-bracket--bl"></span>
+            <span class="modal-bracket modal-bracket--br"></span>
+
             <div class="modal-body">
-                <div class="success-icon">
-                    <i class="fas fa-check-circle"></i>
+                <p class="modal-status">// TX_COMPLETE &middot; 200 OK</p>
+
+                <div class="success-check" aria-hidden="true">
+                    <svg viewBox="0 0 80 80" fill="none">
+                        <circle class="success-check__ring" cx="40" cy="40" r="36" />
+                        <path class="success-check__tick" d="M25 41 L36 52 L56 30" />
+                    </svg>
                 </div>
-                <h2>¡Mensaje enviado!</h2>
-                <p>Gracias por contactarme. He recibido tu mensaje y me pondré en contacto pronto.</p>
-                <button class="btn btn-primary" onclick="closeSuccessModal()">
+
+                <h2 id="success-title">Mensaje enviado</h2>
+                <p class="modal-text">Recibi tu mensaje y te respondo a la brevedad. Gracias por escribir.</p>
+
+                <button type="button" class="btn btn-primary" id="success-close">
                     <span>Cerrar</span>
                 </button>
             </div>
