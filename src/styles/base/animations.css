@@ -1,0 +1,15 @@
+/* Animaciones de scroll */
+/* ============================================
+   Animaciones de Scroll
+   ============================================ */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+

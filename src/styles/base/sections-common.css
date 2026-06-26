@@ -1,0 +1,37 @@
+/* Secciones comunes */
+/* ============================================
+   Secciones Comunes
+   ============================================ */
+section {
+    padding: 100px 0;
+    position: relative;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-tag {
+    display: inline-block;
+    padding: 8px 20px;
+    background: color-mix(in srgb, var(--chapter) 12%, transparent);
+    border: 1px solid var(--chapter);
+    border-radius: 50px;
+    color: var(--chapter);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+/* Color de capítulo por sección (rompe el verde/azul con cálidos) */
+.about { --chapter: var(--color-accent); }       /* ember */
+.skills { --chapter: var(--color-secondary); }   /* teal */
+.certificates { --chapter: var(--color-gold); }  /* gold */
+
+.section-title {
+    font-family: var(--font-primary);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+}
+

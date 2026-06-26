@@ -1,0 +1,92 @@
+/* Sobre Mi */
+/* ============================================
+   About Section
+   ============================================ */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-intro {
+    font-size: 1.3rem;
+    color: var(--color-text);
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.about-text p {
+    color: var(--color-text-muted);
+    margin-bottom: 15px;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid var(--color-border);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-family: var(--font-primary);
+    font-size: 3rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-top: 5px;
+}
+
+.about-image {
+    position: relative;
+}
+
+.image-frame {
+    position: relative;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+}
+
+/* Reduce ligeramente el tamaño de la segunda imagen (About) en desktop */
+.about-image .image-frame {
+    width: 85%;
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+.frame-decoration {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--color-primary);
+    border-radius: var(--border-radius-lg);
+    z-index: -1;
+}
+
+.image-frame img {
+    border-radius: var(--border-radius-lg);
+    filter: grayscale(20%);
+    transition: var(--transition-normal);
+}
+
+.image-frame:hover img {
+    filter: grayscale(0%);
+}
+

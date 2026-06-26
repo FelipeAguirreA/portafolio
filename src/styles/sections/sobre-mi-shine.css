@@ -1,0 +1,22 @@
+/* Foto Sobre Mi efecto shine */
+/* ============================================
+   Foto de Sobre Mí — efecto shine (E2): reflejo que barre al hover
+   ============================================ */
+.image-frame::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -130%;
+    width: 65%;
+    height: 100%;
+    transform: skewX(-20deg);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .4), transparent);
+    pointer-events: none;
+    z-index: 2;
+}
+.image-frame:hover::after { animation: shine .9s ease; }
+@keyframes shine { to { left: 130%; } }
+@media (prefers-reduced-motion: reduce) {
+    .image-frame:hover::after { animation: none; }
+}
+

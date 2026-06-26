@@ -1,0 +1,48 @@
+/* Accesibilidad: reduced-motion + skip-link */
+/* ============================================
+   Accesibilidad: respeta prefers-reduced-motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    /* Apaga el cursor fluido WebGL y las partículas (movimiento constante) */
+    #fluid,
+    #particles,
+    .projects-particles { display: none !important; }
+    /* Garantiza el contenido visible aunque no dispare el reveal */
+    .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* Foco visible para navegación por teclado */
+:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+/* ============================================
+   Skip-link (accesibilidad por teclado)
+   ============================================ */
+.skip-link {
+    position: absolute;
+    left: 12px;
+    top: -60px;
+    z-index: 9999;
+    padding: 10px 18px;
+    background: var(--color-primary);
+    color: #0a0a0a;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+.skip-link:focus { top: 12px; }
+
+/* Overlay (link de GitHub) por encima del mockup */
+.project-card .project-overlay { z-index: 2; }
+

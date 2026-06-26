@@ -1,0 +1,25 @@
+/* Punto de entrada de estilos. El ORDEN de los @import respeta
+   la cascada original de css/style.css. No reordenar sin verificar. */
+
+@import './base/variables.css';
+@import './base/reset.css';
+@import './components/particles.css';
+@import './layout/navbar.css';
+@import './sections/hero.css';
+@import './base/sections-common.css';
+@import './sections/sobre-mi.css';
+@import './sections/habilidades.css';
+@import './sections/proyectos.css';
+@import './sections/certificados.css';
+@import './sections/contacto.css';
+@import './layout/footer.css';
+@import './base/responsive.css';
+@import './components/modal-cert.css';
+@import './components/modal-success.css';
+@import './base/animations.css';
+@import './base/accessibility.css';
+@import './vendor/lenis.css';
+@import './components/cards.css';
+@import './sections/hero-photo.css';
+@import './sections/sobre-mi-shine.css';
+@import './components/mockups.css';

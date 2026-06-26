@@ -1,0 +1,92 @@
+/* Reset y Base */
+/* ============================================
+   Reset y Base
+   ============================================ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: auto; /* Lenis maneja el suavizado por JS; el CSS pelearía */
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-secondary);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: auto;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ff9d6b 0%, #cdf32f 50%, #43d6c0 100%);
+    border-radius: 6px;
+    border: 2px solid var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ff9d6b 0%, #dbf95f 50%, #43d6c0 100%);
+    box-shadow: 0 0 10px rgba(255, 157, 107, 0.5);
+}
+
+/* Firefox Scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #cdf32f var(--color-bg-secondary);
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff9d6b 0%, #cdf32f 50%, #43d6c0 100%);
+    transform-origin: 0%;
+    transform: scaleX(0);
+    z-index: 10001;
+    box-shadow: 0 0 15px rgba(255, 157, 107, 0.6), 0 0 30px rgba(205, 243, 47, 0.4);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+button {
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Cursor personalizado eliminado. Se usa solo el canvas fluido (#fluid). */
+

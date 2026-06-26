@@ -1,0 +1,29 @@
+/* Variables CSS */
+/* ============================================
+   Variables CSS
+   ============================================ */
+:root {
+    --color-bg: #0a0a0a;
+    --color-bg-secondary: #111111;
+    --color-bg-card: #1a1a1a;
+    --color-primary: #cdf32f;        /* chartreuse — marca FA, reemplaza el índigo de IA */
+    --color-primary-light: #dbf95f;
+    --color-secondary: #43d6c0;      /* teal — frío */
+    --color-accent: #ff9d6b;         /* ember — cálido, reemplaza el rosa */
+    --color-gold: #e8c45a;           /* gold — logros/certificados */
+    --chapter: #cdf32f;              /* color de capítulo por sección (default chartreuse) */
+    --color-text: #ffffff;
+    --color-text-muted: #a1a1aa;
+    --color-border: #27272a;
+    --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    --gradient-accent: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+    --font-primary: 'Space Grotesk', sans-serif;
+    --font-secondary: 'Inter', sans-serif;
+    --font-mono: ui-monospace, 'Cascadia Code', 'Courier New', monospace;
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    --border-radius: 12px;
+    --border-radius-lg: 20px;
+}
+
