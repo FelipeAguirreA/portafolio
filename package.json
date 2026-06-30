@@ -4,6 +4,9 @@
   "description": "Portafolio personal con formulario de contacto",
   "type": "module",
   "main": "index.html",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
