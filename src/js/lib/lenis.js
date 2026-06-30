@@ -9,7 +9,9 @@ let lenis = null;
 export function initLenis() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
 
-  lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+  // lerp mas alto = el scroll persigue el input mas de cerca (menos inercia/arrastre).
+  // 0.1 (default) se sentia "pesado"; 0.14 lo hace mas directo sin perder suavidad.
+  lenis = new Lenis({ lerp: 0.14, smoothWheel: true });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => { lenis.raf(time * 1000); });
   gsap.ticker.lagSmoothing(0);
