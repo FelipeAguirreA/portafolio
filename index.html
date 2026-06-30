@@ -35,6 +35,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Perf: precargar las imagenes de certificados con prioridad baja para que
+         lleguen descargadas ANTES de scrollear (evita el hipo al llegar rapido a
+         la seccion con cache fria). Junto con decoding="async" en los <img>. -->
+    <link rel="preload" as="image" href="/assets/images/certificado.png" fetchpriority="low">
+    <link rel="preload" as="image" href="/assets/images/certificado-zenda.png" fetchpriority="low">
+    <link rel="preload" as="image" href="/assets/images/certificado-panel-erp.png" fetchpriority="low">
+    <link rel="preload" as="image" href="/assets/images/certificado-genesis-avanzado.png" fetchpriority="low">
     <script type="module" src="/src/main.js"></script>
 </head>
 <body>
@@ -424,22 +431,22 @@
                 <div class="carousel__track" id="cert-track">
                     <button class="cert" data-cert-image="/assets/images/certificado.png" data-cert-title="Desarrollo de habilidades personales para el liderazgo" data-cert-desc="Certificación profesional en desarrollo de habilidades personales para el liderazgo.">
                         <span class="cert__shine" aria-hidden="true"></span>
-                        <img src="/assets/images/certificado.png" alt="Certificado de liderazgo" loading="lazy">
+                        <img src="/assets/images/certificado.png" alt="Certificado de liderazgo" decoding="async">
                         <span class="cert__name"><span class="cert__idx">C-01</span>Liderazgo</span>
                     </button>
                     <button class="cert" data-cert-image="/assets/images/certificado-zenda.png" data-cert-title="Zenda Avanzado" data-cert-desc="Especialización en sistema Zenda.">
                         <span class="cert__shine" aria-hidden="true"></span>
-                        <img src="/assets/images/certificado-zenda.png" alt="Certificado Zenda Avanzado" loading="lazy">
+                        <img src="/assets/images/certificado-zenda.png" alt="Certificado Zenda Avanzado" decoding="async">
                         <span class="cert__name"><span class="cert__idx">C-02</span>Zenda Avanzado</span>
                     </button>
                     <button class="cert" data-cert-image="/assets/images/certificado-panel-erp.png" data-cert-title="Panel ERP" data-cert-desc="Gestión de sistemas ERP empresariales.">
                         <span class="cert__shine" aria-hidden="true"></span>
-                        <img src="/assets/images/certificado-panel-erp.png" alt="Certificado Panel ERP" loading="lazy">
+                        <img src="/assets/images/certificado-panel-erp.png" alt="Certificado Panel ERP" decoding="async">
                         <span class="cert__name"><span class="cert__idx">C-03</span>Panel ERP</span>
                     </button>
                     <button class="cert" data-cert-image="/assets/images/certificado-genesis-avanzado.png" data-cert-title="Genesis Avanzado" data-cert-desc="Certificación avanzada en Genesis.">
                         <span class="cert__shine" aria-hidden="true"></span>
-                        <img src="/assets/images/certificado-genesis-avanzado.png" alt="Certificado Genesis Avanzado" loading="lazy">
+                        <img src="/assets/images/certificado-genesis-avanzado.png" alt="Certificado Genesis Avanzado" decoding="async">
                         <span class="cert__name"><span class="cert__idx">C-04</span>Genesis Avanzado</span>
                     </button>
                 </div>
