@@ -1,4 +1,8 @@
-module.exports = async function handler(req, res) {
+// Vercel Serverless Function (ESM: el package.json declara "type": "module").
+// El SDK de Resend se importa arriba; la instancia se crea dentro del handler.
+import { Resend } from 'resend';
+
+export default async function handler(req, res) {
   // Solo acepta POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -18,8 +22,6 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // Inicializar Resend DENTRO de la función
-    const { Resend } = require('resend');
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     await resend.emails.send({
@@ -42,4 +44,4 @@ module.exports = async function handler(req, res) {
     console.error('Error enviando email:', error);
     return res.status(500).json({ error: 'Error al enviar el correo', details: error.message });
   }
-};
+}
